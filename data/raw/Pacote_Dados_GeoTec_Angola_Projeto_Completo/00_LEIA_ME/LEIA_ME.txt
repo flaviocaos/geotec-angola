@@ -1,0 +1,23 @@
+PACOTE DE DADOS – PLATAFORMA DE INTELIGÊNCIA GEOTÉCNICA DE ANGOLA
+
+Este pacote reúne as bases geoespaciais, pontos, amostras, limites administrativos, geologia, solos, articulação cartográfica, manchas de solos vermelhos, reclassificações, controles, resultados de revisão da mancha, bases tabulares, documentos metodológicos e gráficos utilizados ao longo do projeto até 12/09/2026.
+
+ESTRUTURA:
+01_Bases_Tabulares ............. planilhas consolidadas e classificações
+02_Pontos_e_Amostras ........... KMLs de pontos, amostras e dados de satélite
+03_Limites_Administrativos ..... shapefile completo e KML das províncias
+04_Geologia_Solos_Cartografia .. geologia, solos e articulação 20x20
+05_Manchas_Solos_Vermelhos ..... versões da mancha de solos vermelhos
+06_Reclassificacao_e_Controles . reclassificação do geólogo e pontos de controle
+07_Revisao_Mancha_100926 ....... expansões, retrações e proposta revisada
+08_Arquivos_Originais_Comprimidos arquivos ZIP originais relevantes
+09_Documentacao_RAG ............. relatórios e metodologia úteis ao agente/RAG
+10_Graficos_Validacao ........... gráficos estatísticos já produzidos
+
+OBSERVAÇÕES IMPORTANTES:
+- Existem arquivos com versões ou cópias de nomes semelhantes porque o objetivo deste pacote é preservar todo o material utilizado no projeto.
+- "Mancha Solos Vermelhos Actualizada.kml" e "Mancha Solos Vermelhos Actualizada(1).kml" foram verificados anteriormente como arquivos idênticos; ambos foram mantidos por rastreabilidade.
+- "Dados_Com_Ensaio_Parcial_4703_Pontos.kml" é explicitamente uma versão parcial/intermediária e não deve ser tratado como base final consolidada sem validação.
+- Os arquivos de revisão da mancha são produtos derivados e devem ser diferenciados das observações de campo e das bases originais.
+- Ao importar para PostGIS, preserve arquivo de origem, data de importação, tipo de fonte e versão.
+- O arquivo MANIFESTO_ARQUIVOS.csv contém caminho, extensão, tamanho e SHA-256 de cada arquivo deste pacote.

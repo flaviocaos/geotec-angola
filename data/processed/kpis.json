@@ -1,0 +1,229 @@
+{
+  "planilha": {
+    "fonte_arquivo": "PLANILHA_COMPLETA_VERIFICADA.xlsx (aba COM COORDENADAS)",
+    "N_total_registros": 3797,
+    "N_coordenadas_validas": 3756,
+    "N_sem_coordenada": 3,
+    "N_coordenadas_suspeitas_fora_angola": 38,
+    "N_com_ensaio_completo": 3629
+  },
+  "qualidade": {
+    "duplicados_por_coordenada_utm": 247,
+    "aashto_ausente_ou_sem_classificacao": 90,
+    "sucs_ausente": 89,
+    "colapsividade_ausente": 7,
+    "subleito_ausente_ou_sem_classificacao": 280,
+    "cor_ausente": 249,
+    "aashto_variantes_grafia_brutas": 22,
+    "aashto_variantes_apos_normalizacao": 13,
+    "provincias_variantes_texto_distintas": 23
+  },
+  "cor": {
+    "Amarelo claro": 1298,
+    "Vermelho claro": 884,
+    "Vermelho": 540,
+    "Amarelo escuro": 363,
+    "Não informado": 249,
+    "Cinza claro": 157,
+    "Vermelho escuro": 110,
+    "Cinza escuro": 74,
+    "Amarelo": 33,
+    "Cinza": 32,
+    "Vermelho e Amarelo": 23,
+    "Marrom acinzentado": 8,
+    "Castanho": 6,
+    "Amarelo e Cinza": 4,
+    "Marrom": 3,
+    "Marrom claro": 3,
+    "Cinza azulada": 3,
+    "Branco": 2,
+    "Amarelo e Vermelho": 1,
+    "Marrom escuro": 1,
+    "Verde claro": 1,
+    "Amarelo claro e Branco": 1,
+    "Azulada": 1
+  },
+  "aashto_normalizado": {
+    "A.2.4": 1558,
+    "A.6": 409,
+    "A.4": 382,
+    "A.3": 373,
+    "A.1.B": 351,
+    "A.2.6": 344,
+    "A.7.6": 101,
+    "A.1.A": 73,
+    "Não informado": 65,
+    "A.2.7": 48,
+    "A.7.5": 39,
+    "A.5": 25,
+    "SEMCLASSIFICAÇÃO": 25,
+    "A.2.5": 4
+  },
+  "sucs": {
+    "SM": 1549,
+    "SC": 738,
+    "SP-SM": 467,
+    "CL": 262,
+    "ML": 171,
+    "GM": 92,
+    "Não informado": 89,
+    "SW-SM": 86,
+    "GC": 78,
+    "GP-GM": 68,
+    "SM-SC": 68,
+    "SP": 50,
+    "CH": 18,
+    "GP-GC": 12,
+    "MH": 11,
+    "SW": 11,
+    "GP": 5,
+    "SP-SC": 5,
+    "CL-ML": 4,
+    "GM-GC": 4,
+    "SW-SC": 3,
+    "GW-GC": 3,
+    "GW-GM": 2,
+    "SC-SM": 1
+  },
+  "colapsividade": {
+    "P1 – Alta susceptibilidade (estrutura pouco plástica)": 3013,
+    "P2 – Susceptibilidade moderada": 640,
+    "P3 – Baixa susceptibilidade": 137,
+    "Não informado": 7
+  },
+  "subleito": {
+    "Bom a regular": 1833,
+    "Regular a fraco": 775,
+    "Fraco a mau": 500,
+    "Excelente a bom": 409,
+    "Não informado": 222,
+    "Sem classificação": 58
+  },
+  "fonte": {
+    "BDM": 1495,
+    "EC-ENGECONSULT": 992,
+    "ATP ENGENHARIA": 402,
+    "HUBGEO": 289,
+    "PLANASUL": 97,
+    "CARMON": 85,
+    "HUBGEO / CCEC": 82,
+    "INEA": 72,
+    "QGMI": 58,
+    "MERCONS": 48,
+    "SEOP": 44,
+    "CRCE": 27,
+    "NOROESTE": 17,
+    "NOVA VIDA": 16,
+    "INEIA": 16,
+    "CHINA ZHONG TAI": 13,
+    "CASAIS ANGOLA": 10,
+    "TPF": 7,
+    "OLIVEIRA & LIMA": 6,
+    "HIATO": 6,
+    "HUBJEO": 4,
+    "GID ENGENHARIA": 3,
+    "ROMERO": 3,
+    "-": 3,
+    "OLIVEIRA ALIMA": 2
+  },
+  "provincia_texto_planilha": {
+    "CUANZA SUL": 531,
+    "CUANZA NORTE": 462,
+    "MOXICO LESTE": 432,
+    "HUÍLA": 427,
+    "CUANDO": 317,
+    "HUILA": 267,
+    "BIÉ": 245,
+    "CUBANGO": 212,
+    "LUANDA": 172,
+    "MALANJE": 158,
+    "HUAMBO": 140,
+    "ICOLO E BENGO": 88,
+    "UÍGE": 86,
+    "LUNDA NORTE": 62,
+    "LUNDA SUL": 51,
+    "MOXICO": 44,
+    "ZAIRE": 29,
+    "ÍCOLO E BENGO": 27,
+    "BENGUELA": 15,
+    "NAMIBE": 13,
+    "BENGO": 12,
+    "BiE / HUAMBO": 4,
+    "CABINDA": 3
+  },
+  "mancha": {
+    "area_atual_km2_projeto": 950775.6,
+    "area_revisada_proposta_km2_projeto": 970860.5,
+    "variacao_liquida_km2_projeto": 20084.8,
+    "variacao_liquida_pct_projeto": 2.11,
+    "area_atual_km2_recalculo_independente": 951015.1,
+    "area_revisada_km2_recalculo_independente": 984140.2,
+    "fonte": "Resumo_Revisao_Mancha.csv (07_Revisao_Mancha_100926); recálculo independente via shapely/pyproj a partir dos KML originais como conferência",
+    "pontos_reclassificados_geologo": 374,
+    "vermelhos_fora_mancha_projeto": 54,
+    "nao_vermelhos_dentro_mancha_projeto": 40,
+    "fonte_reclassificacao": "Resumo_Revisao_Mancha.csv + Dados sem ensaio 10.09.26 (1).kmz (374 placemarks)",
+    "zonas_expansao_prioritaria": 22,
+    "zonas_expansao_sob_revisao": 7,
+    "zonas_retracao_prioritaria": 5,
+    "zonas_internas_sob_revisao": 25
+  },
+  "join_espacial_planilha_geotecnica": {
+    "descricao": "Cálculo independente: pontos da planilha geotécnica com coordenada VÁLIDA E PLAUSÍVEL (exclui as 38 coordenadas suspeitas) testados contra o polígono 01_Mancha_Atual.kml. Conjunto DIFERENTE do usado no Resumo_Revisao_Mancha.csv (conjunto curado de controle cartográfico/reclassificação) — não comparar diretamente os dois números. A API ao vivo usa um critério de inclusão ligeiramente mais amplo (todas as coordenadas presentes, inclusive as suspeitas), por isso os totais podem diferir em poucas dezenas de pontos entre os dois modos.",
+    "N_pontos_testados": 3756,
+    "dentro_mancha": 3003,
+    "fora_mancha": 753,
+    "vermelho_dentro": 1390,
+    "vermelho_fora": 154,
+    "nao_vermelho_dentro": 1512,
+    "nao_vermelho_fora": 453
+  },
+  "camadas_pontos": {
+    "planilha_geotecnica_ensaio": {
+      "n": 3797,
+      "fonte_file": "PLANILHA_COMPLETA_VERIFICADA.xlsx",
+      "source_type": "ensaio"
+    },
+    "cor_solos_cartografico_2141": {
+      "n": 2141,
+      "fonte_file": "CCEC_Pontos_Angola_Com - Coordenadas - com - cor.kml / KML_2141_Pontos_Cor.kml",
+      "source_type": "campo/cartografia"
+    },
+    "reclassificacao_interpolada_2562": {
+      "n": 2562,
+      "fonte_file": "Nova_Classificacao_Pontos_Coloridos.kml",
+      "source_type": "interpretacao (KNN espacial)"
+    },
+    "imagens_satelite_790": {
+      "n": 790,
+      "fonte_file": "Ptos_Imagens_de_Satelite.kml",
+      "source_type": "imagem_satelite"
+    },
+    "coletas_amostras_169": {
+      "n": 169,
+      "fonte_file": "Pontos_Coletas_Amostras(1).kml",
+      "source_type": "campo"
+    },
+    "ensaio_parcial_4703_NAO_FINAL": {
+      "n": 4703,
+      "fonte_file": "Dados_Com_Ensaio_Parcial_4703_Pontos.kml",
+      "source_type": "historico",
+      "aviso": "Marcado no LEIA_ME como versão parcial/intermediária; não usar como base final sem validação"
+    },
+    "reclassificacao_geologo_374": {
+      "n": 374,
+      "fonte_file": "Dados sem ensaio 10.09.26 (1).kmz",
+      "source_type": "reclassificacao_geologo"
+    },
+    "controle_nao_vermelho_fora_826": {
+      "n": 826,
+      "fonte_file": "Pontos_Novos_Nao_Vermelhos_Fora_Mancha.kml",
+      "source_type": "controle_cartografico"
+    },
+    "controle_nao_vermelho_fora_reduzido_413": {
+      "n": 413,
+      "fonte_file": "Pontos_Nao_Vermelhos_Fora_Mancha_Reduzidos_413.kml",
+      "source_type": "controle_cartografico"
+    }
+  }
+}

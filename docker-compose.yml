@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: geotec_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: geotec
+      POSTGRES_PASSWORD: geotec_dev_pw
+      POSTGRES_DB: geotec_angola
+    ports:
+      - "5432:5432"
+    volumes:
+      - geotec_pgdata:/var/lib/postgresql/data
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U geotec -d geotec_angola"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    container_name: geotec_api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://geotec:geotec_dev_pw@db:5432/geotec_angola
+    ports:
+      - "8000:8000"
+
+volumes:
+  geotec_pgdata:

@@ -1,0 +1,1405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<name>Pontos de Coleta de Amostras</name>
+<description>Pontos de coleta gerados a partir da planilha Pontos_Coletas_de_Amostras_V2-1</description>
+<Style id="pointStyle">
+  <IconStyle>
+    <color>ff0000ff</color>
+    <scale>1.0</scale>
+    <Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href></Icon>
+  </IconStyle>
+  <LabelStyle><scale>0.8</scale></LabelStyle>
+</Style>
+<Folder><name>ZAIRE</name>
+<Placemark>
+  <name>PC-ZRE-001</name>
+  <description><![CDATA[<b>Nome:</b> Soyo<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 204507<br/><b>N:</b> 9318055<br/><b>Quadrícula:</b> 82]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.330096885123154,-6.162841571355959,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-002</name>
+  <description><![CDATA[<b>Nome:</b> Sende<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 249565<br/><b>N:</b> 9270720<br/><b>Quadrícula:</b> 133]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.735101386381809,-6.592590065407458,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-003</name>
+  <description><![CDATA[<b>Nome:</b> N∩Zeto<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 264665<br/><b>N:</b> 9200606<br/><b>Quadrícula:</b> 242]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.868759695763444,-7.227001274348358,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-004</name>
+  <description><![CDATA[<b>Nome:</b> Tomboco<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 314046<br/><b>N:</b> 9246062<br/><b>Quadrícula:</b> 160]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.317293048675845,-6.817857926810668,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-005</name>
+  <description><![CDATA[<b>Nome:</b> Baca<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 370716<br/><b>N:</b> 9264728<br/><b>Quadrícula:</b> 139]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.830418389943462,-6.650554538615203,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-006</name>
+  <description><![CDATA[<b>Nome:</b> Mbanza Congo<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 410571<br/><b>N:</b> 9303735<br/><b>Quadrícula:</b> 92]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.191502587473494,-6.2984474087232964,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-007</name>
+  <description><![CDATA[<b>Nome:</b> Luege<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 422820<br/><b>N:</b> 9303262<br/><b>Quadrícula:</b> 92]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.302229928813441,-6.302885739371151,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-008</name>
+  <description><![CDATA[<b>Nome:</b> Mapala<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 362252<br/><b>N:</b> 9320722<br/><b>Quadrícula:</b> 90]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.755086150445898,-6.143955984607185,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-009</name>
+  <description><![CDATA[<b>Nome:</b> Coco<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 397878<br/><b>N:</b> 9338013<br/><b>Quadrícula:</b> 65]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.077293010347267,-5.988209397956544,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-010</name>
+  <description><![CDATA[<b>Nome:</b> Luvo<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 398815<br/><b>N:</b> 9352529<br/><b>Quadrícula:</b> 40]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.085974284029577,-5.856923631841943,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ZRE-011</name>
+  <description><![CDATA[<b>Nome:</b> Nhoqui<br/><b>Província:</b> ZAIRE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 330678<br/><b>N:</b> 9347280<br/><b>Quadrícula:</b> 37]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.470467326145396,-5.9030499914974355,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>BENGO</name>
+<Placemark>
+  <name>PC-BGO-001</name>
+  <description><![CDATA[<b>Nome:</b> Bela Vista<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 369907<br/><b>N:</b> 9136362<br/><b>Quadrícula:</b> 362]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.820090661018632,-7.811472340154422,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BGO-002</name>
+  <description><![CDATA[<b>Nome:</b> Onzo<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 417192<br/><b>N:</b> 9107491<br/><b>Quadrícula:</b> 405]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.248446163490982,-8.07358427502085,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BGO-003</name>
+  <description><![CDATA[<b>Nome:</b> Quissacala<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 395948<br/><b>N:</b> 9090037<br/><b>Quadrícula:</b> 452]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.055284306581141,-8.231043223088287,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BGO-004</name>
+  <description><![CDATA[<b>Nome:</b> Barra do Dande<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 320727<br/><b>N:</b> 9062998<br/><b>Quadrícula:</b> 545]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.371468633431455,-8.473336233003998,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BGO-005</name>
+  <description><![CDATA[<b>Nome:</b> Caxito<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 353308<br/><b>N:</b> 9054752<br/><b>Quadrícula:</b> 546]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.667118342349351,-8.549025751121807,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BGO-006</name>
+  <description><![CDATA[<b>Nome:</b> Pqnguila<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 337084<br/><b>N:</b> 9041024<br/><b>Quadrícula:</b> 593]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.519252286352849,-8.672622115174411,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BGO-007</name>
+  <description><![CDATA[<b>Nome:</b> Bula Atumba<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 478327<br/><b>N:</b> 9035077<br/><b>Quadrícula:</b> 600]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.802963245721417,-8.729234758730994,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BGO-008</name>
+  <description><![CDATA[<b>Nome:</b> Ucua 2<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 414415<br/><b>N:</b> 9047354<br/><b>Quadrícula:</b> 549]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.222168627761992,-8.617450021881579,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BGO-009</name>
+  <description><![CDATA[<b>Nome:</b> Quitaxe<br/><b>Província:</b> BENGO<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 448731<br/><b>N:</b> 9058252<br/><b>Quadrícula:</b> 551]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.534156970265874,-8.519382475907344,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>LUANDA</name>
+<Placemark>
+  <name>PC-LDA-001</name>
+  <description><![CDATA[<b>Nome:</b> Ramiros<br/><b>Província:</b> LUANDA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 286713<br/><b>N:</b> 8993365<br/><b>Quadrícula:</b> 186]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.059321332229658,-9.101406775184913,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDA-002</name>
+  <description><![CDATA[<b>Nome:</b> Barra do Kwanza 01<br/><b>Província:</b> LUANDA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 305653<br/><b>N:</b> 8966612<br/><b>Quadrícula:</b> 739]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.230390378779997,-9.344148072950356,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>ICOLO E BENGO</name>
+<Placemark>
+  <name>PC-ICB-001</name>
+  <description><![CDATA[<b>Nome:</b> Barra do Kwanza 02<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 305653<br/><b>N:</b> 8966612<br/><b>Quadrícula:</b> 740]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.230390378779997,-9.344148072950356,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ICB-002</name>
+  <description><![CDATA[<b>Nome:</b> Sangano<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 306107<br/><b>N:</b> 8945586<br/><b>Quadrícula:</b> 789]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.233554875632583,-9.534255177004637,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ICB-003</name>
+  <description><![CDATA[<b>Nome:</b> Cabo Ledo<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 307551<br/><b>N:</b> 8934742<br/><b>Quadrícula:</b> 838]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.246202606153831,-9.632357156252791,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ICB-004</name>
+  <description><![CDATA[<b>Nome:</b> Muxima 02<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 330520<br/><b>N:</b> 8940118<br/><b>Quadrícula:</b> 839]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.455684686757207,-9.584750660632567,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ICB-005</name>
+  <description><![CDATA[<b>Nome:</b> Muxima 2<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 364764<br/><b>N:</b> 8934658<br/><b>Quadrícula:</b> 841]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.767484010616979,-9.635373267528708,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ICB-006</name>
+  <description><![CDATA[<b>Nome:</b> Muxima<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 389761<br/><b>N:</b> 8942455<br/><b>Quadrícula:</b> 842]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.995482961502058,-9.565600784185241,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ICB-007</name>
+  <description><![CDATA[<b>Nome:</b> Muxima 03<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 372661<br/><b>N:</b> 8954990<br/><b>Quadrícula:</b> 792]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.840067297549577,-9.451761657613815,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ICB-008</name>
+  <description><![CDATA[<b>Nome:</b> Catete<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 364825<br/><b>N:</b> 8965109<br/><b>Quadrícula:</b> 743]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.769023722546747,-9.360014849645328,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-ICB-009</name>
+  <description><![CDATA[<b>Nome:</b> Catete<br/><b>Província:</b> ICOLO E BENGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 355360<br/><b>N:</b> 8982907<br/><b>Quadrícula:</b> 742]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.683446024510648,-9.198766009322688,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>CUANZA NORTE</name>
+<Placemark>
+  <name>PC-CZN-001</name>
+  <description><![CDATA[<b>Nome:</b> Beira Alta<br/><b>Província:</b> CUANZA NORTE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 436042<br/><b>N:</b> 8987781<br/><b>Quadrícula:</b> 697]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.417865659902251,-9.156616132814388,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZN-002</name>
+  <description><![CDATA[<b>Nome:</b> Dange Ya Menha<br/><b>Província:</b> CUANZA NORTE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 463311<br/><b>N:</b> 8946852<br/><b>Quadrícula:</b> 796]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.665706443682954,-9.52712309033546,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZN-003</name>
+  <description><![CDATA[<b>Nome:</b> Ndalatando<br/><b>Província:</b> CUANZA NORTE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 497197<br/><b>N:</b> 8972033<br/><b>Quadrícula:</b> 749]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.974476900739404,-9.299523201591866,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZN-004</name>
+  <description><![CDATA[<b>Nome:</b> Cambondo<br/><b>Província:</b> CUANZA NORTE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 462618<br/><b>N:</b> 8989176<br/><b>Quadrícula:</b> 698]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.659763699244236,-9.144306468207008,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>CUANZA SUL</name>
+<Placemark>
+  <name>PC-CZS-001</name>
+  <description><![CDATA[<b>Nome:</b> Bongue<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 345573<br/><b>N:</b> 8861662<br/><b>Quadrícula:</b> 1035]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.58978155398193,-10.294722287546001,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-002</name>
+  <description><![CDATA[<b>Nome:</b> Porto Amboim<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 365886<br/><b>N:</b> 8807118<br/><b>Quadrícula:</b> 1132]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.77329601204165,-10.78867442042221,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-003</name>
+  <description><![CDATA[<b>Nome:</b> Sumbe<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 380110<br/><b>N:</b> 8749168<br/><b>Quadrícula:</b> 1288]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.901433393343739,-11.313164226086764,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-004</name>
+  <description><![CDATA[<b>Nome:</b> EN 100 Cuanza Sul<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 376985<br/><b>N:</b> 8706901<br/><b>Quadrícula:</b> 1403]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.871280802406062,-11.695232084749845,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-005</name>
+  <description><![CDATA[<b>Nome:</b> Cassongue<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 491118<br/><b>N:</b> 8691236<br/><b>Quadrícula:</b> 1466]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.918456348853802,-11.839108796250276,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-006</name>
+  <description><![CDATA[<b>Nome:</b> Ucu Seles<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 422067<br/><b>N:</b> 8739945<br/><b>Quadrícula:</b> 1347]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.285656595934231,-11.397746122520912,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-007</name>
+  <description><![CDATA[<b>Nome:</b> Gabela<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 428873<br/><b>N:</b> 8798601<br/><b>Quadrícula:</b> 1183]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.349217378314203,-10.867445099171043,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-008</name>
+  <description><![CDATA[<b>Nome:</b> Condé<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 464578<br/><b>N:</b> 8800184<br/><b>Quadrícula:</b> 1185]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.675913333019825,-10.853646499431674,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-009</name>
+  <description><![CDATA[<b>Nome:</b> Catofe<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 507811<br/><b>N:</b> 8791574<br/><b>Quadrícula:</b> 1187]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.071484168535678,-10.93167819123302,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-010</name>
+  <description><![CDATA[<b>Nome:</b> Donduma<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 563646<br/><b>N:</b> 8827816<br/><b>Quadrícula:</b> 1093]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.58183153092167,-10.603370912516471,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-011</name>
+  <description><![CDATA[<b>Nome:</b> Cariango<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 532480<br/><b>N:</b> 8825394<br/><b>Quadrícula:</b> 1140]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.29694691455985,-10.625673497373574,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-012</name>
+  <description><![CDATA[<b>Nome:</b> Kimina<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 503708<br/><b>N:</b> 8827935<br/><b>Quadrícula:</b> 1090]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.033897844600869,-10.602830644536434,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-013</name>
+  <description><![CDATA[<b>Nome:</b> Kamungo<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 483644<br/><b>N:</b> 8851165<br/><b>Quadrícula:</b> 1041]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.850577570740855,-10.39269863176686,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-014</name>
+  <description><![CDATA[<b>Nome:</b> Cassange<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 480423<br/><b>N:</b> 8864950<br/><b>Quadrícula:</b> 1041]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.821222249700535,-10.268007239018308,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CZS-015</name>
+  <description><![CDATA[<b>Nome:</b> Calulo<br/><b>Província:</b> CUANZA SUL<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 466680<br/><b>N:</b> 8894776<br/><b>Quadrícula:</b> 943]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.695976005024239,-9.998156359393283,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>BENGUELA</name>
+<Placemark>
+  <name>PC-BEG-001</name>
+  <description><![CDATA[<b>Nome:</b> Canjala<br/><b>Província:</b> BENGUELA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 387381<br/><b>N:</b> 8680048<br/><b>Quadrícula:</b> 1519]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.96574673946357,-11.938397079075031,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BEG-002</name>
+  <description><![CDATA[<b>Nome:</b> EN 205 Benguela<br/><b>Província:</b> BENGUELA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 451886<br/><b>N:</b> 8632669<br/><b>Quadrícula:</b> 1638]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.557409693534968,-12.368400618649789,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BEG-003</name>
+  <description><![CDATA[<b>Nome:</b> Dombe Grande<br/><b>Província:</b> BENGUELA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 303700<br/><b>N:</b> 8581620<br/><b>Quadrícula:</b> 1814]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.19134271990557,-12.824175941696181,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BEG-004</name>
+  <description><![CDATA[<b>Nome:</b> Cubal<br/><b>Província:</b> BENGUELA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 405196<br/><b>N:</b> 8557550<br/><b>Quadrícula:</b> 1883]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.125625268253263,-13.046578666487989,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BEG-005</name>
+  <description><![CDATA[<b>Nome:</b> Ganda<br/><b>Província:</b> BENGUELA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 449819<br/><b>N:</b> 8563646<br/><b>Quadrícula:</b> 1885]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.537270623799794,-12.992519139030145,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>NAMIBE</name>
+<Placemark>
+  <name>PC-NBE-001</name>
+  <description><![CDATA[<b>Nome:</b> Bentiaba<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 218293<br/><b>N:</b> 8403325<br/><b>Quadrícula:</b> 2304]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.38726714192665,-14.428108246910323,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-002</name>
+  <description><![CDATA[<b>Nome:</b> EN 100<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 229423<br/><b>N:</b> 8400851<br/><b>Quadrícula:</b> 2305]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.490171355700799,-14.45157626026437,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-003</name>
+  <description><![CDATA[<b>Nome:</b> EN 100<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 234106<br/><b>N:</b> 8378858<br/><b>Quadrícula:</b> 2359]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.53137286381145,-14.650700991468897,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-004</name>
+  <description><![CDATA[<b>Nome:</b> Desvio Moculo<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 212548<br/><b>N:</b> 8349758<br/><b>Quadrícula:</b> 2412]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.32815826306414,-14.911309170678576,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-005</name>
+  <description><![CDATA[<b>Nome:</b> EN 280/EN 100<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 215614<br/><b>N:</b> 8339070<br/><b>Quadrícula:</b> 2466]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.355451041148019,-15.008169440310272,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-006</name>
+  <description><![CDATA[<b>Nome:</b> Moçamades<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 198425<br/><b>N:</b> 8328064<br/><b>Quadrícula:</b> 2465]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.194439257151247,-15.105644014053068,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-007</name>
+  <description><![CDATA[<b>Nome:</b> ST01-J6<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 205810<br/><b>N:</b> 8313120<br/><b>Quadrícula:</b> 2520]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.261345968534703,-15.241440232468854,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-008</name>
+  <description><![CDATA[<b>Nome:</b> Caraculo 2<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 235397<br/><b>N:</b> 8338580<br/><b>Quadrícula:</b> 2467]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.539239602241441,-15.014658531517837,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-009</name>
+  <description><![CDATA[<b>Nome:</b> Caraculo<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 256112<br/><b>N:</b> 8337237<br/><b>Quadrícula:</b> 2468]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.731644643397216,-15.028793221629744,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-010</name>
+  <description><![CDATA[<b>Nome:</b> Marco 96<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 281118<br/><b>N:</b> 8336170<br/><b>Quadrícula:</b> 2469]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.964018112434003,-15.04063574600474,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-011</name>
+  <description><![CDATA[<b>Nome:</b> Leba<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 297110<br/><b>N:</b> 8334609<br/><b>Quadrícula:</b> 2470]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.112587218162584,-15.05602575097232,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-012</name>
+  <description><![CDATA[<b>Nome:</b> Virei<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 247481<br/><b>N:</b> 8271143<br/><b>Quadrícula:</b> 2632]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>12.644737924420955,-15.625025544874074,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-NBE-013</name>
+  <description><![CDATA[<b>Nome:</b> Tombwa<br/><b>Província:</b> NAMIBE<br/><b>Fuso:</b> 32 L<br/><b>E:</b> 813380<br/><b>N:</b> 8256065<br/><b>Quadrícula:</b> 2685]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>11.924377750076806,-15.754340655689239,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>CUNENE</name>
+<Placemark>
+  <name>PC-CNE-001</name>
+  <description><![CDATA[<b>Nome:</b> Cahama<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 426144<br/><b>N:</b> 8197112<br/><b>Quadrícula:</b> 2867]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.308655507722925,-16.305810321352475,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-002</name>
+  <description><![CDATA[<b>Nome:</b> Boluré<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 455510<br/><b>N:</b> 8186780<br/><b>Quadrícula:</b> 2926]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.58333706274857,-16.399930854046552,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-003</name>
+  <description><![CDATA[<b>Nome:</b> EN 110 Xangongo<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 479464<br/><b>N:</b> 8175070<br/><b>Quadrícula:</b> 2927]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.807568086813456,-16.506113891704384,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-004</name>
+  <description><![CDATA[<b>Nome:</b> Mucope<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 488101<br/><b>N:</b> 8183114<br/><b>Quadrícula:</b> 2928]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.88854223119444,-16.433455007641456,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-005</name>
+  <description><![CDATA[<b>Nome:</b> Humbe<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 490760<br/><b>N:</b> 8153852<br/><b>Quadrícula:</b> 2987]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.913330810778708,-16.69799286752387,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-006</name>
+  <description><![CDATA[<b>Nome:</b> EN 110 Xangongo<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 488407<br/><b>N:</b> 8138988<br/><b>Quadrícula:</b> 3046]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.8911838305892,-16.832349131698003,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-007</name>
+  <description><![CDATA[<b>Nome:</b> Mupa<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 580287<br/><b>N:</b> 8210596<br/><b>Quadrícula:</b> 2818]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.751076765843912,-16.183717210240943,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-008</name>
+  <description><![CDATA[<b>Nome:</b> Balangana<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 549249<br/><b>N:</b> 8137071<br/><b>Quadrícula:</b> 3049]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.46230615974511,-16.84918642234624,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-009</name>
+  <description><![CDATA[<b>Nome:</b> Ondjiva<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 568906<br/><b>N:</b> 8120192<br/><b>Quadrícula:</b> 3110]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.64734254966612,-17.001257802470572,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-010</name>
+  <description><![CDATA[<b>Nome:</b> Ondjiva 2<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 562207<br/><b>N:</b> 8105327<br/><b>Quadrícula:</b> 3167]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.584829195790501,-17.135813078092905,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-011</name>
+  <description><![CDATA[<b>Nome:</b> Namacunde<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 589615<br/><b>N:</b> 8086390<br/><b>Quadrícula:</b> 3221]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.843259652555336,-17.306063483250348,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CNE-012</name>
+  <description><![CDATA[<b>Nome:</b> Santa Clara<br/><b>Província:</b> CUNENE<br/><b>Fuso:</b> 33 K<br/><b>E:</b> 594837<br/><b>N:</b> 8078011<br/><b>Quadrícula:</b> 3221]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.892759649202466,-17.381581372529563,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>HUÍLA</name>
+<Placemark>
+  <name>PC-HLA-001</name>
+  <description><![CDATA[<b>Nome:</b> Tchitunda<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 357538<br/><b>N:</b> 8364105<br/><b>Quadrícula:</b> 2419]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.67622985441149,-14.793394673282378,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-002</name>
+  <description><![CDATA[<b>Nome:</b> EN 280<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 400962<br/><b>N:</b> 8367853<br/><b>Quadrícula:</b> 2421]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.079827060744554,-14.761475083949911,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-003</name>
+  <description><![CDATA[<b>Nome:</b> Caluquembe<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 466270<br/><b>N:</b> 8472342<br/><b>Quadrícula:</b> 2105]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.687903488735975,-13.818342678019254,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-004</name>
+  <description><![CDATA[<b>Nome:</b> Calueque/Caconda<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 489118<br/><b>N:</b> 8476852<br/><b>Quadrícula:</b> 2106]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.899328183298099,-13.777740410522151,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-005</name>
+  <description><![CDATA[<b>Nome:</b> Caconda<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 507833<br/><b>N:</b> 8484290<br/><b>Quadrícula:</b> 2107]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.072444183806336,-13.710494605642198,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-006</name>
+  <description><![CDATA[<b>Nome:</b> Caconda/Chipindo<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 528450<br/><b>N:</b> 8476002<br/><b>Quadrícula:</b> 2108]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.263205080806934,-13.785306035419268,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-007</name>
+  <description><![CDATA[<b>Nome:</b> Cuvango<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 626559<br/><b>N:</b> 8427769<br/><b>Quadrícula:</b> 2272]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.17298792829014,-14.218691906039279,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-008</name>
+  <description><![CDATA[<b>Nome:</b> Capelongo 2<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 651132<br/><b>N:</b> 8401218<br/><b>Quadrícula:</b> 2326]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.40218490141545,-14.457461434926794,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-009</name>
+  <description><![CDATA[<b>Nome:</b> Capelongo<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 636897<br/><b>N:</b> 8399501<br/><b>Quadrícula:</b> 2325]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.27022678332634,-14.473731418303283,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-010</name>
+  <description><![CDATA[<b>Nome:</b> Indungo<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 636979<br/><b>N:</b> 8362237<br/><b>Quadrícula:</b> 2433]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.27292927813322,-14.81056658983718,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-011</name>
+  <description><![CDATA[<b>Nome:</b> Colui<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 605720<br/><b>N:</b> 8386596<br/><b>Quadrícula:</b> 2378]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.981494028817755,-14.591780063416376,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-012</name>
+  <description><![CDATA[<b>Nome:</b> Dongo<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 563948<br/><b>N:</b> 8381810<br/><b>Quadrícula:</b> 2376]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.593822799288699,-14.636358463411632,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PP-HLA-013</name>
+  <description><![CDATA[<b>Nome:</b> Chibemba<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 400917<br/><b>N:</b> 8260374<br/><b>Quadrícula:</b> 2696]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.075170084770495,-15.733067472500107,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-014</name>
+  <description><![CDATA[<b>Nome:</b> Chiange<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 382820<br/><b>N:</b> 8261149<br/><b>Quadrícula:</b> 2695]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>13.906312525951058,-15.725280849301296,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-015</name>
+  <description><![CDATA[<b>Nome:</b> Rio da Areia<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 400711<br/><b>N:</b> 8276694<br/><b>Quadrícula:</b> 2640]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.07391205193469,-15.58553455835917,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HLA-016</name>
+  <description><![CDATA[<b>Nome:</b> Dongue<br/><b>Província:</b> HUÍLA<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 395629<br/><b>N:</b> 8294848<br/><b>Quadrícula:</b> 2585]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.027284409715516,-15.421226633499812,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>HUAMBO</name>
+<Placemark>
+  <name>PC-HBO-001</name>
+  <description><![CDATA[<b>Nome:</b> Lumbale<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 532564<br/><b>N:</b> 8645800<br/><b>Quadrícula:</b> 1642]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.299416340324122,-12.24985126178471,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-002</name>
+  <description><![CDATA[<b>Nome:</b> Catuta<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 577085<br/><b>N:</b> 8652552<br/><b>Quadrícula:</b> 1585]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.708595651987931,-12.188044439921171,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-003</name>
+  <description><![CDATA[<b>Nome:</b> Sailundo<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 611644<br/><b>N:</b> 8636539<br/><b>Quadrícula:</b> 1646]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.026805527835574,-12.331831273127982,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-004</name>
+  <description><![CDATA[<b>Nome:</b> Chumbo<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 621311<br/><b>N:</b> 8623244<br/><b>Quadrícula:</b> 1707]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.11621411337229,-12.451687689442709,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-005</name>
+  <description><![CDATA[<b>Nome:</b> Catchiungo/Chumbo<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 626251<br/><b>N:</b> 8615798<br/><b>Quadrícula:</b> 1708]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.161962287817666,-12.518816989366666,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-006</name>
+  <description><![CDATA[<b>Nome:</b> Catchiungo/Chinhanha<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 629597<br/><b>N:</b> 8595871<br/><b>Quadrícula:</b> 1770]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.19358687001158,-12.698842473814326,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-007</name>
+  <description><![CDATA[<b>Nome:</b> Chipango<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 603763<br/><b>N:</b> 8575451<br/><b>Quadrícula:</b> 1830]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.956377275840811,-12.884435002959787,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-008</name>
+  <description><![CDATA[<b>Nome:</b> Catata<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 550241<br/><b>N:</b> 8518866<br/><b>Quadrícula:</b> 2005]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.464046030783795,-13.397431549298885,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-009</name>
+  <description><![CDATA[<b>Nome:</b> Coquengo<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 568699<br/><b>N:</b> 8555171<br/><b>Quadrícula:</b> 1891]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.63367619607593,-13.068791135954207,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-010</name>
+  <description><![CDATA[<b>Nome:</b> Huambo<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 578796<br/><b>N:</b> 8571132<br/><b>Quadrícula:</b> 1828]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.726385737842856,-12.924226862121525,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-011</name>
+  <description><![CDATA[<b>Nome:</b> Huambo<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 584082<br/><b>N:</b> 8577541<br/><b>Quadrícula:</b> 1829]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.774933681609967,-12.866136877864207,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-012</name>
+  <description><![CDATA[<b>Nome:</b> Calenga<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 537235<br/><b>N:</b> 8567901<br/><b>Quadrícula:</b> 1826]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.343300627439156,-12.954228136953521,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-013</name>
+  <description><![CDATA[<b>Nome:</b> Longojo<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 524770<br/><b>N:</b> 8569419<br/><b>Quadrícula:</b> 1826]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.22836366640389,-12.94062740611013,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-014</name>
+  <description><![CDATA[<b>Nome:</b> Caala<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 568000<br/><b>N:</b> 8583264<br/><b>Quadrícula:</b> 1828]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.626594254197414,-12.81478398705736,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-015</name>
+  <description><![CDATA[<b>Nome:</b> Ekunha<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 555124<br/><b>N:</b> 8596542<br/><b>Quadrícula:</b> 1766]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.507711081450479,-12.69497298756947,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-016</name>
+  <description><![CDATA[<b>Nome:</b> Abreu<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 582146<br/><b>N:</b> 8598853<br/><b>Quadrícula:</b> 1767]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.756518583493971,-12.673484148674586,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-HBO-017</name>
+  <description><![CDATA[<b>Nome:</b> Caiengue<br/><b>Província:</b> HUAMBO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 571582<br/><b>N:</b> 8626696<br/><b>Quadrícula:</b> 1705]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.65859457985903,-12.421974868013029,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>UÍGE</name>
+<Placemark>
+  <name>PC-UGE-001</name>
+  <description><![CDATA[<b>Nome:</b> Maquela do Zombo<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 508149<br/><b>N:</b> 9330602<br/><b>Quadrícula:</b> 71]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.073641233427013,-6.056022724522503,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-002</name>
+  <description><![CDATA[<b>Nome:</b> Mbanza Palabala<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 504764<br/><b>N:</b> 9316229<br/><b>Quadrícula:</b> 97]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.043061936935702,-6.186048170530366,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-003</name>
+  <description><![CDATA[<b>Nome:</b> Quibocolo<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 505852<br/><b>N:</b> 9302499<br/><b>Quadrícula:</b> 122]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.05290887139444,-6.3102520709851655,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-004</name>
+  <description><![CDATA[<b>Nome:</b> Banza<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 500962<br/><b>N:</b> 9282783<br/><b>Quadrícula:</b> 145]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.008700614722319,-6.488609266636822,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-005</name>
+  <description><![CDATA[<b>Nome:</b> Damba<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 517516<br/><b>N:</b> 9264445<br/><b>Quadrícula:</b> 146]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.158472218083148,-6.6544717661484745,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PP-UGE-006</name>
+  <description><![CDATA[<b>Nome:</b> 31 de Janeiro<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 533929<br/><b>N:</b> 9235442<br/><b>Quadrícula:</b> 194]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.307130375026686,-6.9167605430395245,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-007</name>
+  <description><![CDATA[<b>Nome:</b> Quincunguri<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 536816<br/><b>N:</b> 9203288<br/><b>Quadrícula:</b> 255]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.333471916438977,-7.207601175424087,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-008</name>
+  <description><![CDATA[<b>Nome:</b> Songo<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 483990<br/><b>N:</b> 9189677<br/><b>Quadrícula:</b> 253]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>14.854944470611043,-7.330822568597202,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-009</name>
+  <description><![CDATA[<b>Nome:</b> Bungo<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 537835<br/><b>N:</b> 9172562<br/><b>Quadrícula:</b> 293]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.342914693896677,-7.485531458086442,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-010</name>
+  <description><![CDATA[<b>Nome:</b> Uige<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 510461<br/><b>N:</b> 9162413<br/><b>Quadrícula:</b> 330]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.094832982094845,-7.577459904023641,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-UGE-011</name>
+  <description><![CDATA[<b>Nome:</b> Negage<br/><b>Província:</b> UÍGE<br/><b>Fuso:</b> 33 M<br/><b>E:</b> 529896<br/><b>N:</b> 9138036<br/><b>Quadrícula:</b> 370]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.27115771628583,-7.797890139876496,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>MALANJE</name>
+<Placemark>
+  <name>PC-MJE-001</name>
+  <description><![CDATA[<b>Nome:</b> Calandula<br/><b>Província:</b> MALANJE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 603641<br/><b>N:</b> 8996589<br/><b>Quadrícula:</b> 705]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.943085664885906,-9.07619804182489,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-MJE-002</name>
+  <description><![CDATA[<b>Nome:</b> Lombe<br/><b>Província:</b> MALANJE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 622980<br/><b>N:</b> 8966642<br/><b>Quadrícula:</b> 755]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.119893030500997,-9.346519680111726,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-MJE-003</name>
+  <description><![CDATA[<b>Nome:</b> Cacuso<br/><b>Província:</b> MALANJE<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 568806<br/><b>N:</b> 8958497<br/><b>Quadrícula:</b> 802]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>15.626728827765161,-9.421398831123847,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>BIÉ</name>
+<Placemark>
+  <name>PC-BIE-001</name>
+  <description><![CDATA[<b>Nome:</b> Cuanza<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 788325<br/><b>N:</b> 8672548<br/><b>Quadrícula:</b> 1539]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.647697356758336,-11.99559631619853,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-002</name>
+  <description><![CDATA[<b>Nome:</b> Coemba<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 185594<br/><b>N:</b> 8656041<br/><b>Quadrícula:</b> 1598]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>18.111406315814673,-12.142317519566605,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-003</name>
+  <description><![CDATA[<b>Nome:</b> Munhango<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 236998<br/><b>N:</b> 8651830<br/><b>Quadrícula:</b> 1601]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>18.5830118004743,-12.184890824790422,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-004</name>
+  <description><![CDATA[<b>Nome:</b> Catabola<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 744910<br/><b>N:</b> 8654854<br/><b>Quadrícula:</b> 1594]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.250585735342003,-12.158971557434912,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-005</name>
+  <description><![CDATA[<b>Nome:</b> Catenga<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 771846<br/><b>N:</b> 8645409<br/><b>Quadrícula:</b> 1654]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.498755708950494,-12.242178147138173,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-006</name>
+  <description><![CDATA[<b>Nome:</b> Cachiungo<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 650255<br/><b>N:</b> 8614112<br/><b>Quadrícula:</b> 1709]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.382924889316428,-12.533014302531821,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-007</name>
+  <description><![CDATA[<b>Nome:</b> Cangala<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 667902<br/><b>N:</b> 8611122<br/><b>Quadrícula:</b> 1710]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.545467213625834,-12.559158269186884,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-008</name>
+  <description><![CDATA[<b>Nome:</b> Kassenge<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 685461<br/><b>N:</b> 8614539<br/><b>Quadrícula:</b> 1711]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.70683895496486,-12.52729218248964,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-009</name>
+  <description><![CDATA[<b>Nome:</b> Chiunge<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 690881<br/><b>N:</b> 8592583<br/><b>Quadrícula:</b> 1773]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.758059461147834,-12.725424463850457,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-010</name>
+  <description><![CDATA[<b>Nome:</b> Cachingues<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 690813<br/><b>N:</b> 8565832<br/><b>Quadrícula:</b> 1897]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.759115227440965,-12.967218585833542,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-011</name>
+  <description><![CDATA[<b>Nome:</b> Candingo<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 688985<br/><b>N:</b> 8531069<br/><b>Quadrícula:</b> 1960]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.744483939741865,-13.28153445642759,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-012</name>
+  <description><![CDATA[<b>Nome:</b> Chitembo<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 692358<br/><b>N:</b> 8501447<br/><b>Quadrícula:</b> 2064]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.77757709955921,-13.549044393102674,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-013</name>
+  <description><![CDATA[<b>Nome:</b> EN 140 Capingana<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 731705<br/><b>N:</b> 8476575<br/><b>Quadrícula:</b> 2118]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.14304758380972,-13.77093556858453,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-BIE-014</name>
+  <description><![CDATA[<b>Nome:</b> Mumbué<br/><b>Província:</b> BIÉ<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 748135<br/><b>N:</b> 8462308<br/><b>Quadrícula:</b> 2172]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.29619012631214,-13.898466151968773,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>CUBANGO</name>
+<Placemark>
+  <name>PC-CUB-001</name>
+  <description><![CDATA[<b>Nome:</b> EN 140 <br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 771820<br/><b>N:</b> 8440155<br/><b>Quadrícula:</b> 2226]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.51740124893384,-14.096420138942184,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CUB-002</name>
+  <description><![CDATA[<b>Nome:</b> Desvio Sacalumbo<br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 787026<br/><b>N:</b> 8414433<br/><b>Quadrícula:</b> 2280]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.66083919367619,-14.327230490260947,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CUB-003</name>
+  <description><![CDATA[<b>Nome:</b> EN 140 Menongue<br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 787075<br/><b>N:</b> 8388668<br/><b>Quadrícula:</b> 2333]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.66406306928365,-14.55993081991724,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CUB-004</name>
+  <description><![CDATA[<b>Nome:</b> EN 280 Menongue<br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 774247<br/><b>N:</b> 8376869<br/><b>Quadrícula:</b> 2386]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.546332387698882,-14.667831017454317,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CUB-005</name>
+  <description><![CDATA[<b>Nome:</b> EN 280 Menongue 1<br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 781940<br/><b>N:</b> 8374487<br/><b>Quadrícula:</b> 2387]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>17.617964047899395,-14.688551792690685,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CUB-006</name>
+  <description><![CDATA[<b>Nome:</b> EN 280<br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 716247<br/><b>N:</b> 837828<br/><b>Quadrícula:</b> 2383]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>29.548441214606065,-82.26862092952953,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CUB-007</name>
+  <description><![CDATA[<b>Nome:</b> Cuchi<br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 687286<br/><b>N:</b> 8381627<br/><b>Quadrícula:</b> 2382]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.738903393520264,-14.632277482053782,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CUB-008</name>
+  <description><![CDATA[<b>Nome:</b> Mumba<br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 33 L<br/><b>E:</b> 677099<br/><b>N:</b> 8377923<br/><b>Quadrícula:</b> 2381]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>16.644597895591435,-14.66644020752317,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-CUB-001</name>
+  <description><![CDATA[<b>Nome:</b> Cuito Cuanavale<br/><b>Província:</b> CUBANGO<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 303667<br/><b>N:</b> 8322612<br/><b>Quadrícula:</b> 2558]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>19.172634199035283,-15.16493587194609,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>MOXICO</name>
+<Placemark>
+  <name>PC-MOX-001</name>
+  <description><![CDATA[<b>Nome:</b> Cangonga<br/><b>Província:</b> MOXICO<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 260225<br/><b>N:</b> 8658086<br/><b>Quadrícula:</b> 1602]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>18.79681760660072,-12.130145454906913,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-MOX-002</name>
+  <description><![CDATA[<b>Nome:</b> Cangumbe<br/><b>Província:</b> MOXICO<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 299326<br/><b>N:</b> 8676246<br/><b>Quadrícula:</b> 1547]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>19.15707637864708,-11.968627720832426,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-MOX-003</name>
+  <description><![CDATA[<b>Nome:</b> Chicala<br/><b>Província:</b> MOXICO<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 343353<br/><b>N:</b> 8679492<br/><b>Quadrícula:</b> 1549]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>19.56145915956142,-11.941646557389669,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-MOX-004</name>
+  <description><![CDATA[<b>Nome:</b> Capende<br/><b>Província:</b> MOXICO<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 433172<br/><b>N:</b> 8647055<br/><b>Quadrícula:</b> 1611]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>20.385572005966168,-12.237978373036908,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-MOX-005</name>
+  <description><![CDATA[<b>Nome:</b> Lucusse<br/><b>Província:</b> MOXICO<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 480068<br/><b>N:</b> 8614978<br/><b>Quadrícula:</b> 1733]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>20.816535913384776,-12.52867932802166,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>MOXICO-LESTE</name>
+<Placemark>
+  <name>PC-MXL-001</name>
+  <description><![CDATA[<b>Nome:</b> Luau<br/><b>Província:</b> MOXICO-LESTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 634449<br/><b>N:</b> 8816116<br/><b>Quadrícula:</b> 1178]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>22.22943830884502,-10.707301820434962,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-MXL-002</name>
+  <description><![CDATA[<b>Nome:</b> Lumege<br/><b>Província:</b> MOXICO-LESTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 602632<br/><b>N:</b> 8781050<br/><b>Quadrícula:</b> 1275]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>21.939517568728792,-11.02541029785418,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>LUNDA SUL</name>
+<Placemark>
+  <name>PC-LDS-001</name>
+  <description><![CDATA[<b>Nome:</b> Pamba<br/><b>Província:</b> LUNDA SUL<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 336301<br/><b>N:</b> 8889860<br/><b>Quadrícula:</b> 969]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>19.506314499424775,-10.039393340534318,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDS-002</name>
+  <description><![CDATA[<b>Nome:</b> Muriege<br/><b>Província:</b> LUNDA SUL<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 523590<br/><b>N:</b> 8905005<br/><b>Quadrícula:</b> 978]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>21.215183821643787,-9.905709034988185,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDS-003</name>
+  <description><![CDATA[<b>Nome:</b> Muconda<br/><b>Província:</b> LUNDA SUL<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 552052<br/><b>N:</b> 8868557<br/><b>Quadrícula:</b> 1029]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>21.47528693556241,-10.235086232561024,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDS-004</name>
+  <description><![CDATA[<b>Nome:</b> Dala<br/><b>Província:</b> LUNDA SUL<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 412607<br/><b>N:</b> 8780370<br/><b>Quadrícula:</b> 1266]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>20.19995692951507,-11.031959717213848,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+<Folder><name>LUNDA NORTE</name>
+<Placemark>
+  <name>PC-LDN-001</name>
+  <description><![CDATA[<b>Nome:</b> Lovua<br/><b>Província:</b> LUNDA NORTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 408909<br/><b>N:</b> 9188139<br/><b>Quadrícula:</b> 270]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>20.17469014907202,-7.343999818039004,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDN-002</name>
+  <description><![CDATA[<b>Nome:</b> Caluango<br/><b>Província:</b> LUNDA NORTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 352508<br/><b>N:</b> 9084277<br/><b>Quadrícula:</b> 483]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>19.66076839580882,-8.282009650068272,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDN-003</name>
+  <description><![CDATA[<b>Nome:</b> Camaxilo<br/><b>Província:</b> LUNDA NORTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 270527<br/><b>N:</b> 9077631<br/><b>Quadrícula:</b> 527]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>18.91633827371202,-8.338896159011187,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDN-004</name>
+  <description><![CDATA[<b>Nome:</b> Caungula<br/><b>Província:</b> LUNDA NORTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 237271<br/><b>N:</b> 9064937<br/><b>Quadrícula:</b> 525]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>18.613834191556563,-8.451917147844895,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDN-005</name>
+  <description><![CDATA[<b>Nome:</b> Cuango<br/><b>Província:</b> LUNDA NORTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 172644<br/><b>N:</b> 9008243<br/><b>Quadrícula:</b> 667]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>18.02331730062983,-8.960016518515625,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDN-006</name>
+  <description><![CDATA[<b>Nome:</b> Cambolo<br/><b>Província:</b> LUNDA NORTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 212826<br/><b>N:</b> 8973191<br/><b>Quadrícula:</b> 768]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>18.38611216599517,-9.279491071147016,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDN-007</name>
+  <description><![CDATA[<b>Nome:</b> Calugula<br/><b>Província:</b> LUNDA NORTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 282861<br/><b>N:</b> 8927799<br/><b>Quadrícula:</b> 869]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>19.020921857642975,-9.693900374483722,0</coordinates>
+  </Point>
+</Placemark>
+<Placemark>
+  <name>PC-LDN-008</name>
+  <description><![CDATA[<b>Nome:</b> Cassanguide<br/><b>Província:</b> LUNDA NORTE<br/><b>Fuso:</b> 34 L<br/><b>E:</b> 336301<br/><b>N:</b> 8889860<br/><b>Quadrícula:</b> 969]]></description>
+  <styleUrl>#pointStyle</styleUrl>
+  <Point>
+    <coordinates>19.506314499424775,-10.039393340534318,0</coordinates>
+  </Point>
+</Placemark>
+</Folder>
+</Document>
+</kml>
