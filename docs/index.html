@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeoTec Angola — Plataforma de Inteligência Geotécnica</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/chartjs/chart.umd.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -530,18 +530,24 @@ async function bootstrap(){
 document.getElementById('api-connect-btn').addEventListener('click', bootstrap);
 document.getElementById('api-url-input').addEventListener('keydown', e=>{ if(e.key==='Enter') bootstrap(); });
 
+function safe(label, fn){
+  try { fn(); }
+  catch(e){ console.error(`Falha ao renderizar "${label}":`, e); }
+}
+
 function renderAll(){
-  document.getElementById('tb-total').textContent = fmt(DATA.kpis.planilha.N_total_registros);
-  const nProv = DATA.provincias.features.length;
-  document.getElementById('tb-provincias').textContent = nProv;
-  document.getElementById('pontos-layer-label').textContent = `PONTOS GEOTÉCNICOS (${fmt(DATA.pontos.length)})`;
-  renderKPIs();
-  renderCharts();
-  renderManchaView();
-  renderQualityView();
-  renderFontesView();
-  initMap();
-  renderPontosTable();
+  safe('resumo topo', () => {
+    document.getElementById('tb-total').textContent = fmt(DATA.kpis.planilha.N_total_registros);
+    document.getElementById('tb-provincias').textContent = DATA.provincias.features.length;
+    document.getElementById('pontos-layer-label').textContent = `PONTOS GEOTÉCNICOS (${fmt(DATA.pontos.length)})`;
+  });
+  safe('KPIs', renderKPIs);
+  safe('gráficos', renderCharts);
+  safe('mancha', renderManchaView);
+  safe('qualidade', renderQualityView);
+  safe('fontes', renderFontesView);
+  safe('mapa', initMap);
+  safe('tabela de pontos', renderPontosTable);
 }
 
 /* ---------- KPI CARDS (Visão Geral) ---------- */
@@ -568,9 +574,6 @@ function renderKPIs(){
 }
 
 /* ---------- CHARTS ---------- */
-Chart.defaults.color = '#93AAB3';
-Chart.defaults.borderColor = '#20404C';
-Chart.defaults.font.family = "'IBM Plex Sans',sans-serif";
 const palette = ['#3E93A3','#BE9464','#C6553A','#5FA98C','#D2A24C','#6E7FBE','#9C6EBE','#5E7982','#4C8FBE','#BE4C8F','#8FBE4C','#BE7A4C'];
 let chartInstances = [];
 
@@ -595,6 +598,15 @@ function barChart(id, dataObj, opts={}){
   chartInstances.push(chart);
 }
 function renderCharts(){
+  if(typeof Chart === 'undefined'){
+    document.querySelectorAll('.chart-box').forEach(box=>{
+      box.innerHTML = '<div class="empty-hint">Biblioteca de gráficos não carregou. Recarregue a página.</div>';
+    });
+    return;
+  }
+  Chart.defaults.color = '#93AAB3';
+  Chart.defaults.borderColor = '#20404C';
+  Chart.defaults.font.family = "'IBM Plex Sans',sans-serif";
   chartInstances.forEach(c=>c.destroy());
   chartInstances = [];
   const k = DATA.kpis;
@@ -683,6 +695,10 @@ function corToColor(cor){
   return '#5E7982';
 }
 function initMap(){
+  if(typeof L === 'undefined'){
+    document.getElementById('map').innerHTML = '<div class="empty-hint">Biblioteca de mapa não carregou. Recarregue a página.</div>';
+    return;
+  }
   if(map){ map.remove(); map = null; layerRefs = {}; }
   map = L.map('map', {preferCanvas:true}).setView([-12.5, 17.5], 6);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -818,7 +834,14 @@ function renderPontosTable(){
   render();
 }
 
-bootstrap();
+bootstrap().catch(e => {
+  console.error('Erro inesperado no bootstrap, forçando modo offline:', e);
+  DATA = OFFLINE_DATA;
+  dataSourceMode = 'offline';
+  const statusEl = document.getElementById('data-status');
+  if(statusEl){ statusEl.textContent = '⚪ dados estáticos (offline)'; statusEl.className = 'mono offline'; }
+  renderAll();
+});
 </script>
 </body>
 </html>
