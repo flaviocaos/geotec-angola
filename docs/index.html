@@ -117,7 +117,13 @@
   .layer-group{margin-bottom:16px;}
   .layer-group h4{font-size:11px;color:var(--text-dim);letter-spacing:.6px;margin-bottom:8px;}
   .layer-row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12.5px;color:var(--text-muted);}
-  .layer-row input{accent-color:var(--petrol);}
+  .layer-row input[type=checkbox]{accent-color:var(--petrol);}
+  .layer-row select{background:var(--bg-raised);border:1px solid var(--border);color:var(--text);
+    padding:6px 8px;border-radius:6px;font-size:12.5px;font-family:inherit;}
+  input.legend-color{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:5px;
+    border:1px solid var(--border);padding:0;background:none;cursor:pointer;flex-shrink:0;}
+  input.legend-color::-webkit-color-swatch-wrapper{padding:2px;}
+  input.legend-color::-webkit-color-swatch{border:none;border-radius:3px;}
   .empty-hint{color:var(--text-dim);font-size:12.5px;text-align:center;padding:40px 10px;line-height:1.6;}
   .inspect-field{margin-bottom:9px;}
   .inspect-field .k{font-size:10.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;}
@@ -135,7 +141,7 @@
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media(max-width:900px){.two-col{grid-template-columns:1fr;}}
 
-  .compare-bars{display:flex;gap:20px;align-items:flex-end;height:130px;margin:10px 0 4px;}
+  .compare-bars{display:flex;gap:24px;align-items:flex-end;min-height:170px;margin:18px 0 14px;padding-top:6px;}
   .compare-bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;}
   .compare-bar .bar{width:56px;border-radius:5px 5px 0 0;}
   .compare-bar .bar.a{background:var(--petrol);}
@@ -204,15 +210,44 @@
       <div id="map-view">
         <div id="layers-panel">
           <div class="layer-group">
+            <h4>MAPA BASE</h4>
+            <div class="layer-row">
+              <select id="basemap-select" style="width:100%;">
+                <option value="osm">Mapa (OpenStreetMap)</option>
+                <option value="sat">Satélite (Esri World Imagery)</option>
+              </select>
+            </div>
+          </div>
+          <div class="layer-group">
             <h4>ADMINISTRATIVO</h4>
-            <div class="layer-row"><input type="checkbox" checked data-layer="provincias"> Províncias (21)</div>
+            <div class="layer-row">
+              <input type="checkbox" checked data-layer="provincias">
+              <span style="flex:1;">Províncias (21)</span>
+              <input type="color" class="legend-color" data-layer-color="provincias" value="#3E93A3" title="Cor da camada">
+            </div>
           </div>
           <div class="layer-group">
             <h4>SOLOS VERMELHOS</h4>
-            <div class="layer-row"><input type="checkbox" checked data-layer="manchaAtual"> Mancha vigente</div>
-            <div class="layer-row"><input type="checkbox" data-layer="manchaRevisada"> Mancha revisada (proposta)</div>
-            <div class="layer-row"><input type="checkbox" data-layer="expansao"> Expansão prioritária</div>
-            <div class="layer-row"><input type="checkbox" data-layer="retracao"> Retração prioritária</div>
+            <div class="layer-row">
+              <input type="checkbox" checked data-layer="manchaAtual">
+              <span style="flex:1;">Mancha vigente</span>
+              <input type="color" class="legend-color" data-layer-color="manchaAtual" value="#C6553A" title="Cor da camada">
+            </div>
+            <div class="layer-row">
+              <input type="checkbox" data-layer="manchaRevisada">
+              <span style="flex:1;">Mancha revisada (proposta)</span>
+              <input type="color" class="legend-color" data-layer-color="manchaRevisada" value="#D2A24C" title="Cor da camada">
+            </div>
+            <div class="layer-row">
+              <input type="checkbox" data-layer="expansao">
+              <span style="flex:1;">Expansão prioritária</span>
+              <input type="color" class="legend-color" data-layer-color="expansao" value="#5FA98C" title="Cor da camada">
+            </div>
+            <div class="layer-row">
+              <input type="checkbox" data-layer="retracao">
+              <span style="flex:1;">Retração prioritária</span>
+              <input type="color" class="legend-color" data-layer-color="retracao" value="#9C6EBE" title="Cor da camada">
+            </div>
           </div>
           <div class="layer-group">
             <h4 id="pontos-layer-label">PONTOS GEOTÉCNICOS</h4>
@@ -222,7 +257,7 @@
             <h4>FILTRAR PONTOS POR COR</h4>
             <div id="cor-filters"></div>
           </div>
-          <div class="foot-note">Clique em qualquer ponto ou província para investigar. 38 registros com coordenada fora dos limites plausíveis de Angola e 10 sem coordenada não aparecem no mapa (ver Qualidade dos Dados).</div>
+          <div class="foot-note" id="map-footnote">Clique em qualquer ponto, província ou área vazia do mapa para investigar o local. Pontos fora dos limites administrativos de Angola não são exibidos (ver Qualidade dos Dados).</div>
         </div>
         <div id="map"></div>
         <div id="inspect-panel">
@@ -322,6 +357,20 @@
 
     <!-- ================= FONTES ================= -->
     <div class="view" id="view-fontes">
+      <div class="panel" style="border-left:3px solid var(--petrol);">
+        <h3>O que é esta aba?</h3>
+        <div class="desc" style="color:var(--text-muted);font-size:12.5px;line-height:1.6;">
+          Esta página não tem filtros nem gráficos — ela existe para <b>auditoria</b>: mostra de qual arquivo
+          original cada número do dashboard veio, para que qualquer pessoa possa conferir os dados na fonte.
+          <br><br>
+          <b>Sobre o botão "Conectar API" no topo:</b> este dashboard funciona de duas formas. Sozinho, ele usa um
+          retrato fixo dos dados (modo <span class="mono">⚪ offline</span>). Se você também tiver o backend
+          (PostgreSQL/PostGIS + FastAPI deste mesmo projeto) rodando em algum endereço, digite a URL dele no campo
+          ao lado do botão e clique em "Conectar API" — o dashboard passa a calcular tudo ao vivo naquele banco
+          (modo <span class="mono">🟢 API ao vivo</span>). Sem um backend rodando, clicar no botão apenas confirma
+          que não há nada para conectar e mantém o modo offline — isso é esperado, não é um erro.
+        </div>
+      </div>
       <div class="panel">
         <h3>Rastreabilidade de camadas de pontos</h3>
         <div class="desc">Cada camada do pacote de dados original, com contagem real de feições e tipo de origem (source_type). Nenhuma camada foi fundida automaticamente com outra sem verificação de correspondência ponto-a-ponto.</div>
@@ -355,7 +404,10 @@ function setView(name){
   document.querySelectorAll('.nav-item').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+name).classList.add('active');
   document.querySelector(`.nav-item[data-view="${name}"]`).classList.add('active');
-  if(name==='mapa' && map){ setTimeout(()=>map.invalidateSize(),50); }
+  if(name==='mapa'){
+    if(!mapBuilt){ safe('mapa (init)', initMap); }
+    else { setTimeout(()=>map.invalidateSize(),50); }
+  }
 }
 document.querySelectorAll('.nav-item').forEach(el=>{
   el.addEventListener('click',()=>setView(el.dataset.view));
@@ -506,11 +558,15 @@ async function buildLiveData(apiBase){
 
 async function bootstrap(){
   const statusEl = document.getElementById('data-status');
+  const btn = document.getElementById('api-connect-btn');
   const apiBase = apiBaseFromInput();
   const input = document.getElementById('api-url-input');
   if(!input.value) input.value = apiBase;
 
-  statusEl.textContent = 'conectando à API…';
+  const originalLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Conectando…';
+  statusEl.textContent = `conectando a ${apiBase}…`;
   statusEl.className = 'mono';
   try {
     DATA = await buildLiveData(apiBase);
@@ -521,9 +577,11 @@ async function bootstrap(){
     console.warn('API indisponível, usando dados estáticos embutidos:', e);
     DATA = OFFLINE_DATA;
     dataSourceMode = 'offline';
-    statusEl.textContent = '⚪ dados estáticos (offline)';
+    statusEl.textContent = '⚪ offline — API não respondeu';
     statusEl.className = 'mono offline';
   }
+  btn.disabled = false;
+  btn.textContent = originalLabel;
   renderAll();
 }
 
@@ -539,14 +597,14 @@ function renderAll(){
   safe('resumo topo', () => {
     document.getElementById('tb-total').textContent = fmt(DATA.kpis.planilha.N_total_registros);
     document.getElementById('tb-provincias').textContent = DATA.provincias.features.length;
-    document.getElementById('pontos-layer-label').textContent = `PONTOS GEOTÉCNICOS (${fmt(DATA.pontos.length)})`;
+    document.getElementById('pontos-layer-label').textContent = `PONTOS GEOTÉCNICOS`;
   });
   safe('KPIs', renderKPIs);
   safe('gráficos', renderCharts);
   safe('mancha', renderManchaView);
   safe('qualidade', renderQualityView);
   safe('fontes', renderFontesView);
-  safe('mapa', initMap);
+  safe('mapa', prepareMap);
   safe('tabela de pontos', renderPontosTable);
 }
 
@@ -559,9 +617,6 @@ function renderKPIs(){
   const grid = document.getElementById('kpi-grid');
   grid.innerHTML = [
     kpiCard(fmt(k.planilha.N_total_registros),'Total de registros', k.planilha.fonte_arquivo),
-    kpiCard(fmt(k.planilha.N_coordenadas_validas),'Pontos com coordenada válida'),
-    kpiCard(fmt(k.planilha.N_sem_coordenada),'Sem coordenada','',k.planilha.N_sem_coordenada>0?'accent-warn':''),
-    kpiCard(fmt(k.planilha.N_coordenadas_suspeitas_fora_angola),'Coordenadas suspeitas','fora dos limites de Angola','accent-red'),
     kpiCard(fmt(k.join_espacial_planilha_geotecnica.dentro_mancha),'Pontos dentro da mancha vigente','cálculo espacial'),
     kpiCard(fmt(k.join_espacial_planilha_geotecnica.fora_mancha),'Pontos fora da mancha vigente'),
     kpiCard(fmtKm2(k.mancha.area_atual_km2_projeto),'Área da mancha vigente', k.mancha.fonte),
@@ -679,7 +734,6 @@ function renderFontesView(){
 }
 
 /* ---------- MAPA ---------- */
-let map = null, layerRefs = {};
 function corToColor(cor){
   if(!cor) return '#5E7982';
   const c = cor.toLowerCase();
@@ -694,16 +748,87 @@ function corToColor(cor){
   if(c.includes('azul')) return '#4C8FBE';
   return '#5E7982';
 }
+
+/* ---------- GEOMETRIA (sem dependências externas) ---------- */
+// Ray casting: [lon,lat] dentro de um anel de um Polygon GeoJSON
+function pointInRing(lon, lat, ring){
+  let inside = false;
+  for(let i=0, j=ring.length-1; i<ring.length; j=i++){
+    const xi=ring[i][0], yi=ring[i][1], xj=ring[j][0], yj=ring[j][1];
+    const intersect = ((yi>lat)!==(yj>lat)) && (lon < (xj-xi)*(lat-yi)/((yj-yi)||1e-12) + xi);
+    if(intersect) inside = !inside;
+  }
+  return inside;
+}
+function pointInGeometry(lon, lat, geometry){
+  if(!geometry) return false;
+  if(geometry.type === 'Polygon'){
+    if(!pointInRing(lon, lat, geometry.coordinates[0])) return false;
+    for(let k=1;k<geometry.coordinates.length;k++){ if(pointInRing(lon, lat, geometry.coordinates[k])) return false; }
+    return true;
+  }
+  if(geometry.type === 'MultiPolygon'){
+    return geometry.coordinates.some(poly => {
+      if(!pointInRing(lon, lat, poly[0])) return false;
+      for(let k=1;k<poly.length;k++){ if(pointInRing(lon, lat, poly[k])) return false; }
+      return true;
+    });
+  }
+  return false;
+}
+function pointInFeatureCollection(lon, lat, fc){
+  if(!fc || !fc.features) return null;
+  return fc.features.find(f => pointInGeometry(lon, lat, f.geometry)) || null;
+}
+function haversineKm(lat1, lon1, lat2, lon2){
+  const R = 6371;
+  const toRad = d => d*Math.PI/180;
+  const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a));
+}
+
+let map = null, layerRefs = {}, mapBuilt = false, tileOSM = null, tileSat = null;
+
+// Filtra pontos que caem dentro de alguma província (remove ruído fora de Angola do mapa/tabela)
+function filterPointsInsideAngola(){
+  if(!DATA.provincias || !DATA.provincias.features || !DATA.provincias.features.length) return DATA.pontos;
+  return DATA.pontos.filter(pt => {
+    if(pt.lat==null || pt.lon==null) return false;
+    return pointInFeatureCollection(pt.lon, pt.lat, DATA.provincias) !== null;
+  });
+}
+let pontosNoMapa = [];
+
+// Chamado pelo renderAll() — apenas prepara os dados e destrói mapa antigo se a fonte de dados mudou.
+function prepareMap(){
+  pontosNoMapa = filterPointsInsideAngola();
+  document.getElementById('pontos-layer-label').textContent = `PONTOS GEOTÉCNICOS (${fmt(pontosNoMapa.length)})`;
+  if(map){ map.remove(); map = null; layerRefs = {}; mapBuilt = false; }
+  if(document.getElementById('map')){
+    document.getElementById('map').innerHTML = '';
+  }
+}
+
 function initMap(){
   if(typeof L === 'undefined'){
     document.getElementById('map').innerHTML = '<div class="empty-hint">Biblioteca de mapa não carregou. Recarregue a página.</div>';
     return;
   }
-  if(map){ map.remove(); map = null; layerRefs = {}; }
   map = L.map('map', {preferCanvas:true}).setView([-12.5, 17.5], 6);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+  tileOSM = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:'© OpenStreetMap contributors', maxZoom:18
   }).addTo(map);
+  tileSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution:'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics', maxZoom:18
+  });
+  const basemapSelect = document.getElementById('basemap-select');
+  basemapSelect.value = 'osm';
+  basemapSelect.onchange = () => {
+    if(basemapSelect.value === 'sat'){ map.removeLayer(tileOSM); map.addLayer(tileSat); }
+    else { map.removeLayer(tileSat); map.addLayer(tileOSM); }
+  };
 
   layerRefs.provincias = L.geoJSON(DATA.provincias, {
     style:{color:'#3E93A3', weight:1, fillOpacity:0.02, dashArray:'3,3'},
@@ -729,13 +854,12 @@ function initMap(){
   });
 
   layerRefs.pontos = L.layerGroup();
-  DATA.pontos.forEach(pt=>{
-    if(pt.lat==null||pt.lon==null) return;
+  pontosNoMapa.forEach(pt=>{
     const marker = L.circleMarker([pt.lat, pt.lon], {
       radius:3.5, color:'#0A1720', weight:0.6, fillColor:corToColor(pt.cor), fillOpacity:0.85
     });
     marker.ptData = pt;
-    marker.on('click', ()=> showInspectPonto(pt));
+    marker.on('click', (e)=>{ L.DomEvent.stopPropagation(e); showInspectPonto(pt); });
     layerRefs.pontos.addLayer(marker);
   });
   layerRefs.pontos.addTo(map);
@@ -747,6 +871,14 @@ function initMap(){
     };
   });
 
+  // seletores de cor da legenda — trocam a cor de cada camada ao vivo
+  document.querySelectorAll('[data-layer-color]').forEach(inp=>{
+    inp.oninput = () => {
+      const lyr = layerRefs[inp.dataset.layerColor];
+      if(lyr) lyr.setStyle({color: inp.value, fillColor: inp.value});
+    };
+  });
+
   const cores = Object.keys(DATA.kpis.cor||{}).filter(c=>c!=='Não informado');
   document.getElementById('cor-filters').innerHTML = cores.map(c=>`
     <div class="layer-row"><input type="checkbox" checked data-cor-filter="${c}">
@@ -755,6 +887,11 @@ function initMap(){
   document.querySelectorAll('[data-cor-filter]').forEach(chk=>{
     chk.addEventListener('change', applyCorFilter);
   });
+
+  // clique em área vazia do mapa investiga a coordenada
+  map.on('click', (e)=> showInspectLocation(e.latlng.lat, e.latlng.lng));
+
+  mapBuilt = true;
 }
 function applyCorFilter(){
   const active = new Set(Array.from(document.querySelectorAll('[data-cor-filter]:checked')).map(c=>c.dataset.corFilter));
@@ -793,6 +930,36 @@ function showInspectProvincia(props){
     <div class="foot-note">Correspondência por texto/geometria entre o nome oficial da província e o campo de origem do ponto — pode divergir devido às ${fmt(DATA.kpis.qualidade.provincias_variantes_texto_distintas)} variantes de grafia detectadas (ver Qualidade dos Dados).</div>
   `;
 }
+// Investigação de uma coordenada qualquer clicada no mapa (área vazia) — cálculo 100% client-side
+function showInspectLocation(lat, lon){
+  const provFeat = pointInFeatureCollection(lon, lat, DATA.provincias);
+  const dentroMancha = DATA.manchaAtual.features.length
+    ? DATA.manchaAtual.features.some(f => pointInGeometry(lon, lat, f.geometry)) : null;
+
+  const withDist = pontosNoMapa
+    .map(p => ({p, d: haversineKm(lat, lon, p.lat, p.lon)}))
+    .sort((a,b)=>a.d-b.d)
+    .slice(0, 5);
+
+  const nearestHtml = withDist.map(({p,d}) => `
+    <div class="inspect-field">
+      <div class="k">${d.toFixed(2)} km — ${p.identificacao||'—'}</div>
+      <div class="v" style="font-size:12px;">${p.cor||'Não disponível'} · AASHTO ${p.aashto||'—'} · ${p.provincia||'—'}</div>
+    </div>`).join('');
+
+  document.getElementById('inspect-content').innerHTML = `
+    <div class="inspect-field"><div class="k">Coordenada clicada</div><div class="v mono">${lat.toFixed(5)}, ${lon.toFixed(5)}</div></div>
+    <div class="inspect-field"><div class="k">Província</div><div class="v">${provFeat ? provFeat.properties.nome : 'Não disponível na base atualmente carregada.'}</div></div>
+    <div class="inspect-field"><div class="k">Situação da mancha</div><div class="v">${
+      dentroMancha===true ? '<span class="pill in">Dentro da mancha</span>' :
+      dentroMancha===false ? '<span class="pill out">Fora da mancha</span>' : 'Não disponível.'
+    }</div></div>
+    <h3 style="font-size:12.5px;margin:16px 0 6px;color:var(--text-dim);">PONTOS MAIS PRÓXIMOS</h3>
+    ${nearestHtml || '<div class="empty-hint">Nenhum ponto encontrado.</div>'}
+    <div class="foot-note" style="margin-top:14px;">Calculado no navegador a partir dos ${fmt(pontosNoMapa.length)} pontos carregados — distância em linha reta (haversine), não distância por estrada.</div>
+  `;
+}
+
 
 /* ---------- PONTOS TABLE ---------- */
 function renderPontosTable(){
