@@ -250,6 +250,32 @@
             </div>
           </div>
           <div class="layer-group">
+            <h4>GEOLOGIA E PEDOLOGIA</h4>
+            <div class="layer-row">
+              <input type="checkbox" id="chk-geologia">
+              <span style="flex:1;">Unidades geológicas</span>
+              <span id="geologia-status" class="mono" style="font-size:10px;color:var(--text-dim);"></span>
+            </div>
+            <div class="layer-row">
+              <input type="checkbox" id="chk-pedologia">
+              <span style="flex:1;">Unidades pedológicas (solos)</span>
+              <span id="pedologia-status" class="mono" style="font-size:10px;color:var(--text-dim);"></span>
+            </div>
+          </div>
+          <div class="layer-group">
+            <h4>ANÁLISE DE CLUSTERS (DBSCAN)</h4>
+            <div class="layer-row">
+              <label style="width:70px;">Raio (km)</label>
+              <input type="number" id="dbscan-eps" value="15" min="1" max="200" style="width:60px;">
+            </div>
+            <div class="layer-row">
+              <label style="width:70px;">Mín. pontos</label>
+              <input type="number" id="dbscan-minpts" value="4" min="2" max="50" style="width:60px;">
+            </div>
+            <button id="dbscan-run" class="ghost-btn" style="width:100%;margin-top:4px;">Calcular clusters</button>
+            <div id="dbscan-summary" class="foot-note" style="margin-top:8px;"></div>
+          </div>
+          <div class="layer-group">
             <h4 id="pontos-layer-label">PONTOS GEOTÉCNICOS</h4>
             <div class="layer-row"><input type="checkbox" checked data-layer="pontos"> Mostrar pontos</div>
           </div>
@@ -271,7 +297,7 @@
     <div class="view" id="view-pontos">
       <div class="panel">
         <h3>Pontos e amostras — planilha geotécnica</h3>
-        <div class="desc">3.749 pontos com coordenada válida de 3.797 registros totais. Filtros combináveis, calculados em tempo real sobre a base carregada.</div>
+        <div class="desc">Filtros combináveis, calculados em tempo real sobre a base carregada.</div>
         <div class="filters-bar">
           <select id="f-provincia"><option value="">Todas as províncias</option></select>
           <select id="f-cor"><option value="">Todas as cores</option></select>
@@ -282,6 +308,9 @@
             <option value="false">Fora da mancha</option>
           </select>
           <input type="text" id="f-search" placeholder="Buscar por identificação ou obra…">
+          <button id="export-csv-btn" class="ghost-btn">Exportar CSV</button>
+          <button id="export-geojson-btn" class="ghost-btn">Exportar GeoJSON</button>
+          <button id="copy-link-btn" class="ghost-btn">Copiar link com estes filtros</button>
         </div>
         <div id="pontos-count" class="foot-note" style="margin-bottom:8px;"></div>
         <div style="max-height:520px;overflow-y:auto;border:1px solid var(--border-soft);border-radius:8px;">
@@ -975,6 +1004,14 @@ function renderPontosTable(){
   uniq('cor').forEach(v=>corSel.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
   uniq('aashto').forEach(v=>aashtoSel.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
 
+  // restaura filtros vindos de um link compartilhado (?provincia=...&cor=...)
+  const qp = new URLSearchParams(location.search);
+  if(qp.get('provincia')) provSel.value = qp.get('provincia');
+  if(qp.get('cor')) corSel.value = qp.get('cor');
+  if(qp.get('aashto')) aashtoSel.value = qp.get('aashto');
+  if(qp.get('mancha')) document.getElementById('f-mancha').value = qp.get('mancha');
+  if(qp.get('busca')) document.getElementById('f-search').value = qp.get('busca');
+
   function render(){
     const fp=provSel.value, fc=corSel.value, fa=aashtoSel.value, fm=document.getElementById('f-mancha').value;
     const fs=document.getElementById('f-search').value.toLowerCase();
@@ -983,9 +1020,10 @@ function renderPontosTable(){
       (fm===''||String(p.dentro_mancha)===fm) &&
       (!fs || (String(p.identificacao||'').toLowerCase().includes(fs) || String(p.obra||'').toLowerCase().includes(fs)))
     );
+    currentFilteredPoints = rows;
     document.getElementById('pontos-count').textContent = `${rows.length.toLocaleString('pt-PT')} de ${DATA.pontos.length.toLocaleString('pt-PT')} pontos exibidos`;
-    rows = rows.slice(0,300);
-    document.getElementById('pontos-tbody').innerHTML = rows.map(p=>`
+    const shown = rows.slice(0,300);
+    document.getElementById('pontos-tbody').innerHTML = shown.map(p=>`
       <tr>
         <td>${p.identificacao||'—'}</td><td>${p.obra||'—'}</td><td>${p.provincia||'—'}</td>
         <td>${p.fonte||'—'}</td>
@@ -999,7 +1037,218 @@ function renderPontosTable(){
   document.getElementById('f-mancha').onchange = render;
   document.getElementById('f-search').oninput = render;
   render();
+
+  if(qp.get('view')) setView(qp.get('view'));
 }
+
+/* ---------- EXPORTAÇÃO E LINK COMPARTILHÁVEL ---------- */
+let currentFilteredPoints = [];
+
+function downloadBlob(content, filename, mime){
+  const blob = new Blob([content], {type: mime});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
+
+function exportPontosCSV(){
+  const cols = ['identificacao','obra','provincia','fonte','cor','aashto','sucs','colapsividade','subleito','lat','lon','dentro_mancha'];
+  const header = cols.join(';');
+  const esc = v => v==null ? '' : String(v).replace(/;/g,',').replace(/\n/g,' ');
+  const lines = currentFilteredPoints.map(p => cols.map(c=>esc(p[c])).join(';'));
+  downloadBlob('\uFEFF'+[header,...lines].join('\n'), 'pontos_geotecnicos_filtrados.csv', 'text/csv;charset=utf-8');
+}
+function exportPontosGeoJSON(){
+  const fc = {
+    type: 'FeatureCollection',
+    features: currentFilteredPoints.filter(p=>p.lat!=null&&p.lon!=null).map(p=>({
+      type:'Feature',
+      geometry:{type:'Point', coordinates:[p.lon, p.lat]},
+      properties: {...p, lat:undefined, lon:undefined}
+    }))
+  };
+  downloadBlob(JSON.stringify(fc, null, 2), 'pontos_geotecnicos_filtrados.geojson', 'application/geo+json');
+}
+function copyShareLink(){
+  const params = new URLSearchParams();
+  const map1 = {'f-provincia':'provincia','f-cor':'cor','f-aashto':'aashto','f-mancha':'mancha','f-search':'busca'};
+  Object.entries(map1).forEach(([id,key])=>{
+    const el = document.getElementById(id);
+    if(el && el.value) params.set(key, el.value);
+  });
+  params.set('view','pontos');
+  const url = `${location.origin}${location.pathname}?${params.toString()}`;
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn = document.getElementById('copy-link-btn');
+    const original = btn.textContent;
+    btn.textContent = 'Link copiado!';
+    setTimeout(()=>btn.textContent = original, 1800);
+  }).catch(()=>{
+    prompt('Copie o link abaixo:', url);
+  });
+}
+document.getElementById('export-csv-btn').addEventListener('click', exportPontosCSV);
+document.getElementById('export-geojson-btn').addEventListener('click', exportPontosGeoJSON);
+document.getElementById('copy-link-btn').addEventListener('click', copyShareLink);
+
+/* ---------- GEOLOGIA E PEDOLOGIA (carregamento sob demanda) ---------- */
+let geologiaLayer = null, pedologiaLayer = null;
+const geoPalette = ['#3E93A3','#BE9464','#C6553A','#5FA98C','#D2A24C','#6E7FBE','#9C6EBE','#5E7982',
+  '#4C8FBE','#BE4C8F','#8FBE4C','#BE7A4C','#7A6EBE','#BEA34C','#4CBEA8'];
+const geoColorCache = {};
+function colorForCategory(cat, cache){
+  if(!cat) return '#5E7982';
+  if(!cache[cat]) cache[cat] = geoPalette[Object.keys(cache).length % geoPalette.length];
+  return cache[cat];
+}
+
+async function toggleGeologia(checked){
+  const statusEl = document.getElementById('geologia-status');
+  if(checked){
+    if(!geologiaLayer){
+      statusEl.textContent = 'carregando…';
+      try{
+        const data = await fetchJSON('data/geologia.geojson', 20000);
+        geologiaLayer = L.geoJSON(data, {
+          style: f => ({color:'#0A1720', weight:0.3, fillColor: colorForCategory(f.properties.MAJ_UNIT, geoColorCache), fillOpacity:0.45}),
+          onEachFeature: (f,l) => l.on('click', (e)=>{
+            L.DomEvent.stopPropagation(e);
+            showInspectGeologia(f.properties);
+          })
+        });
+        statusEl.textContent = `${data.features.length} unidades`;
+      } catch(e){
+        statusEl.textContent = 'falhou ao carregar';
+        console.error('Erro ao carregar geologia.geojson', e);
+        return;
+      }
+    }
+    map.addLayer(geologiaLayer);
+  } else if(geologiaLayer){
+    map.removeLayer(geologiaLayer);
+  }
+}
+async function togglePedologia(checked){
+  const statusEl = document.getElementById('pedologia-status');
+  if(checked){
+    if(!pedologiaLayer){
+      statusEl.textContent = 'carregando…';
+      try{
+        const data = await fetchJSON('data/pedologia.geojson', 20000);
+        pedologiaLayer = L.geoJSON(data, {
+          style: f => ({color:'#0A1720', weight:0.3, fillColor: colorForCategory(f.properties.DOMSOILS, {}), fillOpacity:0.45}),
+          onEachFeature: (f,l) => l.on('click', (e)=>{
+            L.DomEvent.stopPropagation(e);
+            showInspectPedologia(f.properties);
+          })
+        });
+        statusEl.textContent = `${data.features.length} unidades`;
+      } catch(e){
+        statusEl.textContent = 'falhou ao carregar';
+        console.error('Erro ao carregar pedologia.geojson', e);
+        return;
+      }
+    }
+    map.addLayer(pedologiaLayer);
+  } else if(pedologiaLayer){
+    map.removeLayer(pedologiaLayer);
+  }
+}
+function showInspectGeologia(p){
+  document.getElementById('inspect-content').innerHTML = `
+    <div class="inspect-field"><div class="k">Código da unidade</div><div class="v">${p.UNIT_CODE||'—'}</div></div>
+    <div class="inspect-field"><div class="k">Supergrupo</div><div class="v">${p.MAJ_UNIT||'Não disponível.'}</div></div>
+    <div class="inspect-field"><div class="k">Grupo</div><div class="v">${p.SUB_UNIT1||'Não disponível.'}</div></div>
+    <div class="inspect-field"><div class="k">Sistema/era</div><div class="v">${p.SYSTEM||'Não disponível.'}</div></div>
+    <div class="inspect-field"><div class="k">Idade (Ma)</div><div class="v">${p.MIN_AGE&&p.MAX_AGE ? p.MIN_AGE+' – '+p.MAX_AGE : 'Não disponível.'}</div></div>
+    <div class="inspect-field"><div class="k">Litologia</div><div class="v" style="font-size:12px;">${p.DESCRIP||'Não disponível.'}</div></div>
+    <div class="foot-note" style="margin-top:14px;">Fonte: Geologia_Angola.kmz (cartografia geológica 1:1.000.000).</div>
+  `;
+}
+function showInspectPedologia(p){
+  document.getElementById('inspect-content').innerHTML = `
+    <div class="inspect-field"><div class="k">Unidade (ISOCSUID)</div><div class="v">${p.ISOCSUID||'—'}</div></div>
+    <div class="inspect-field"><div class="k">Solo dominante</div><div class="v">${p.SOILS||'Não disponível.'}</div></div>
+    <div class="inspect-field"><div class="k">Classe WRB</div><div class="v">${p.WRB||'Não disponível.'}</div></div>
+    <div class="inspect-field"><div class="k">Código WRB</div><div class="v">${p.CODE_WRB||'Não disponível.'}</div></div>
+    <div class="inspect-field"><div class="k">Relevo (landform)</div><div class="v">${p.LANDFORM||'Não disponível.'}</div></div>
+    <div class="inspect-field"><div class="k">Litologia de origem</div><div class="v">${p.LITHOLOGY||'Não disponível.'}</div></div>
+    <div class="foot-note" style="margin-top:14px;">Fonte: Solos_Angola.kmz (base pedológica SOTER).</div>
+  `;
+}
+document.getElementById('chk-geologia').addEventListener('change', e => { if(map) toggleGeologia(e.target.checked); });
+document.getElementById('chk-pedologia').addEventListener('change', e => { if(map) togglePedologia(e.target.checked); });
+
+/* ---------- ANÁLISE DE CLUSTERS (DBSCAN) ---------- */
+function dbscan(points, epsKm, minPts){
+  const labels = new Array(points.length).fill(0); // 0 = não visitado, -1 = ruído, >0 = cluster id
+  let clusterId = 0;
+  function regionQuery(i){
+    const neigh = [];
+    for(let j=0;j<points.length;j++){
+      if(haversineKm(points[i].lat,points[i].lon,points[j].lat,points[j].lon) <= epsKm) neigh.push(j);
+    }
+    return neigh;
+  }
+  for(let i=0;i<points.length;i++){
+    if(labels[i]!==0) continue;
+    const neighbors = regionQuery(i);
+    if(neighbors.length < minPts){ labels[i] = -1; continue; }
+    clusterId++;
+    labels[i] = clusterId;
+    const seeds = neighbors.slice();
+    for(let k=0;k<seeds.length;k++){
+      const j = seeds[k];
+      if(labels[j] === -1) labels[j] = clusterId;
+      if(labels[j] !== 0) continue;
+      labels[j] = clusterId;
+      const jNeighbors = regionQuery(j);
+      if(jNeighbors.length >= minPts) seeds.push(...jNeighbors);
+    }
+  }
+  return {labels, nClusters: clusterId};
+}
+let clusterLayerGroup = null;
+function runClusterAnalysis(){
+  const eps = parseFloat(document.getElementById('dbscan-eps').value) || 15;
+  const minPts = parseInt(document.getElementById('dbscan-minpts').value) || 4;
+  const pts = pontosNoMapa.filter(p=>p.lat!=null && p.lon!=null);
+  const summaryEl = document.getElementById('dbscan-summary');
+  if(pts.length > 2500){
+    summaryEl.innerHTML = `<span style="color:var(--warn);">${fmt(pts.length)} pontos visíveis é muito para calcular ao vivo no navegador. Filtre por província ou cor antes de calcular.</span>`;
+    return;
+  }
+  summaryEl.textContent = 'calculando…';
+  setTimeout(()=>{
+    const {labels, nClusters} = dbscan(pts, eps, minPts);
+    if(clusterLayerGroup){ map.removeLayer(clusterLayerGroup); }
+    clusterLayerGroup = L.layerGroup();
+    const sizes = {};
+    pts.forEach((p,i)=>{
+      const lbl = labels[i];
+      sizes[lbl] = (sizes[lbl]||0)+1;
+      const color = lbl === -1 ? '#5E7982' : geoPalette[(lbl-1) % geoPalette.length];
+      const marker = L.circleMarker([p.lat,p.lon], {radius: lbl===-1?2.5:4.5, color:'#0A1720', weight:0.5, fillColor:color, fillOpacity:0.9});
+      marker.bindTooltip(lbl===-1 ? 'Isolado' : `Cluster ${lbl} (${sizes[lbl]} pts)`);
+      clusterLayerGroup.addLayer(marker);
+    });
+    clusterLayerGroup.addTo(map);
+    if(layerRefs.pontos) map.removeLayer(layerRefs.pontos);
+    const nIsolados = sizes[-1] || 0;
+    const clusterSizes = Object.entries(sizes).filter(([k])=>k!=='-1').map(([k,v])=>v).sort((a,b)=>b-a);
+    summaryEl.innerHTML = `
+      <b>${nClusters}</b> clusters encontrados (raio ${eps} km, mín. ${minPts} pontos)<br>
+      <b>${nIsolados}</b> pontos isolados (sem cluster)<br>
+      Maiores clusters: ${clusterSizes.slice(0,5).join(', ') || '—'}
+    `;
+  }, 30);
+}
+document.getElementById('dbscan-run').addEventListener('click', ()=>{
+  if(!map){ alert('Abra a aba "Mapa & investigação" primeiro.'); return; }
+  runClusterAnalysis();
+});
 
 bootstrap().catch(e => {
   console.error('Erro inesperado no bootstrap, forçando modo offline:', e);
