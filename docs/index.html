@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <script src="vendor/leaflet/leaflet.js"></script>
 <script src="vendor/chartjs/chart.umd.js"></script>
+<script src="vendor/jspdf/jspdf.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -147,6 +148,18 @@
   .compare-bar .bar.a{background:var(--petrol);}
   .compare-bar .bar.b{background:var(--earth);}
   .compare-bar .lbl{font-size:11px;color:var(--text-muted);text-align:center;}
+
+@media print {
+  body *{visibility:hidden;}
+  #inspect-panel, #inspect-panel *{visibility:visible;}
+  #inspect-panel{position:absolute;top:0;left:0;width:100%;background:#fff;color:#111;padding:20px;}
+  #inspect-panel .k{color:#555;}
+  #inspect-panel .v{color:#111;}
+  #inspect-panel .foot-note{color:#777;}
+  #dossie-pdf-btn, #dossie-print-btn{display:none !important;}
+  .pill.in{background:#eaf5ef;color:#2d7a54;}
+  .pill.out{background:#fbeae6;color:#a3402a;}
+}
 </style>
 </head>
 <body>
@@ -174,9 +187,9 @@
     <div class="nav-item" data-view="mapa"><span class="nav-dot"></span>Mapa &amp; investigação</div>
     <div class="nav-item" data-view="pontos"><span class="nav-dot"></span>Pontos e amostras</div>
     <div class="nav-item" data-view="mancha"><span class="nav-dot"></span>Solos vermelhos</div>
+    <div class="nav-item" data-view="simulador"><span class="nav-dot"></span>Simulador de cenários</div>
     <div class="nav-section-label">GOVERNANÇA</div>
     <div class="nav-item" data-view="qualidade"><span class="nav-dot"></span>Qualidade dos dados</div>
-    <div class="nav-item" data-view="fontes"><span class="nav-dot"></span>Fontes &amp; rastreabilidade</div>
   </div>
 
   <div id="main">
@@ -280,6 +293,14 @@
             <div class="layer-row"><input type="checkbox" checked data-layer="pontos"> Mostrar pontos</div>
           </div>
           <div class="layer-group">
+            <h4>SIMULAÇÃO (não oficial)</h4>
+            <div class="layer-row">
+              <input type="checkbox" checked data-layer="simulacao">
+              <span style="flex:1;">Zonas simuladas</span>
+            </div>
+            <div class="foot-note" style="margin:0;">Rode a simulação na aba "Simulador de cenários".</div>
+          </div>
+          <div class="layer-group">
             <h4>FILTRAR PONTOS POR COR</h4>
             <div id="cor-filters"></div>
           </div>
@@ -289,6 +310,8 @@
         <div id="inspect-panel">
           <h3 style="margin-bottom:10px;">Investigação</h3>
           <div id="inspect-content"><div class="empty-hint">Clique num ponto do mapa para ver o dossiê técnico do local: geologia disponível, classificação, situação em relação à mancha de solos vermelhos e fonte do dado.</div></div>
+          <button id="dossie-pdf-btn" class="ghost-btn" style="width:100%;margin-top:14px;display:none;">Gerar dossiê em PDF</button>
+          <button id="dossie-print-btn" class="ghost-btn" style="width:100%;margin-top:8px;display:none;">Imprimir esta investigação</button>
         </div>
       </div>
     </div>
@@ -302,11 +325,6 @@
           <select id="f-provincia"><option value="">Todas as províncias</option></select>
           <select id="f-cor"><option value="">Todas as cores</option></select>
           <select id="f-aashto"><option value="">Todo AASHTO</option></select>
-          <select id="f-mancha">
-            <option value="">Dentro/fora da mancha</option>
-            <option value="true">Dentro da mancha</option>
-            <option value="false">Fora da mancha</option>
-          </select>
           <input type="text" id="f-search" placeholder="Buscar por identificação ou obra…">
           <button id="export-csv-btn" class="ghost-btn">Exportar CSV</button>
           <button id="export-geojson-btn" class="ghost-btn">Exportar GeoJSON</button>
@@ -317,7 +335,7 @@
           <table>
             <thead><tr>
               <th>Identificação</th><th>Obra</th><th>Província</th><th>Fonte</th><th>Cor</th>
-              <th>AASHTO</th><th>SUCS</th><th>Colapsividade</th><th>Mancha</th>
+              <th>AASHTO</th><th>SUCS</th><th>Colapsividade</th>
             </tr></thead>
             <tbody id="pontos-tbody"></tbody>
           </table>
@@ -360,6 +378,50 @@
       </div>
     </div>
 
+    <!-- ================= SIMULADOR DE CENÁRIOS ================= -->
+    <div class="view" id="view-simulador">
+      <div class="panel">
+        <h3>Simulador de cenários — mancha de solos vermelhos</h3>
+        <div class="desc">
+          Simulação exploratória, calculada no navegador (DBSCAN + envoltória convexa) sobre os pontos
+          "vermelho fora da mancha" e "não-vermelho dentro da mancha" já carregados.
+          <b>Isto é uma ferramenta de apoio, não uma delimitação oficial</b> — nunca altera a mancha vigente
+          e deve ser validada por um geólogo antes de qualquer uso formal. A área de cada zona é uma
+          estimativa aproximada (aproximação equirretangular), não um levantamento GIS de precisão.
+        </div>
+        <div class="filters-bar">
+          <div class="layer-row" style="background:var(--bg-raised);padding:6px 10px;border-radius:6px;">
+            <label style="width:90px;">Raio do cluster</label>
+            <input type="number" id="sim-eps" value="15" min="1" max="200" style="width:60px;"> km
+          </div>
+          <div class="layer-row" style="background:var(--bg-raised);padding:6px 10px;border-radius:6px;">
+            <label style="width:70px;">Mín. pontos</label>
+            <input type="number" id="sim-minpts" value="4" min="2" max="50" style="width:60px;">
+          </div>
+          <div class="layer-row" style="background:var(--bg-raised);padding:6px 10px;border-radius:6px;">
+            <label style="width:70px;">Buffer</label>
+            <input type="number" id="sim-buffer" value="3" min="0" max="50" style="width:60px;"> km
+          </div>
+          <div class="layer-row" style="background:var(--bg-raised);padding:6px 10px;border-radius:6px;">
+            <input type="checkbox" id="sim-ignorar-isolados" checked> Ignorar pontos isolados
+          </div>
+          <button id="sim-run-btn" class="ghost-btn">Rodar simulação</button>
+        </div>
+        <div id="sim-summary" class="foot-note" style="margin:10px 0;"></div>
+        <div class="two-col">
+          <div class="panel" style="margin-bottom:0;">
+            <h3 style="font-size:13px;">Zonas de expansão propostas (vermelho fora)</h3>
+            <table><tbody id="sim-expansao-table"></tbody></table>
+          </div>
+          <div class="panel" style="margin-bottom:0;">
+            <h3 style="font-size:13px;">Zonas de retração propostas (não-vermelho dentro)</h3>
+            <table><tbody id="sim-retracao-table"></tbody></table>
+          </div>
+        </div>
+        <div class="foot-note" style="margin-top:10px;">Para ver as zonas desenhadas no mapa, abra "Mapa &amp; investigação" — a camada "Simulação personalizada" aparece automaticamente após rodar aqui.</div>
+      </div>
+    </div>
+
     <!-- ================= QUALIDADE ================= -->
     <div class="view" id="view-qualidade">
       <div class="panel">
@@ -370,7 +432,6 @@
       <div class="panel">
         <h3>Inconsistências de grafia detectadas</h3>
         <div class="warn-box">O campo AASHTO possui <b id="q-aashto-raw"></b> grafias distintas no dado bruto (ex.: "A.2.4" e "A-2-4" tratados como categorias separadas), reduzindo para <b id="q-aashto-norm"></b> após normalização de pontuação. O campo PROVÍNCIA possui <b id="q-prov-var"></b> variantes de texto distintas (ex.: "HUÍLA" / "HUILA" / "CUANZA SUL" com espaçamento duplicado) — não normalizado automaticamente nesta versão para preservar o dado original; recomenda-se padronização controlada antes de uso analítico por província.</div>
-        <div class="crit-box"><b id="q-dup"></b> pares de registros compartilham exatamente a mesma coordenada UTM (possível duplicidade de digitação ou múltiplas amostras no mesmo furo/sondagem — requer validação humana, não removido automaticamente).</div>
       </div>
       <div class="panel">
         <h3>Cobertura de coordenadas</h3>
@@ -379,44 +440,6 @@
             <tr><td>Registros com coordenada válida em Angola</td><td class="mono" id="q-coord-ok"></td></tr>
             <tr><td>Registros sem coordenada</td><td class="mono" id="q-coord-null"></td></tr>
             <tr><td>Registros com coordenada fora dos limites plausíveis de Angola</td><td class="mono" id="q-coord-bad"></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ================= FONTES ================= -->
-    <div class="view" id="view-fontes">
-      <div class="panel" style="border-left:3px solid var(--petrol);">
-        <h3>O que é esta aba?</h3>
-        <div class="desc" style="color:var(--text-muted);font-size:12.5px;line-height:1.6;">
-          Esta página não tem filtros nem gráficos — ela existe para <b>auditoria</b>: mostra de qual arquivo
-          original cada número do dashboard veio, para que qualquer pessoa possa conferir os dados na fonte.
-          <br><br>
-          <b>Sobre o botão "Conectar API" no topo:</b> este dashboard funciona de duas formas. Sozinho, ele usa um
-          retrato fixo dos dados (modo <span class="mono">⚪ offline</span>). Se você também tiver o backend
-          (PostgreSQL/PostGIS + FastAPI deste mesmo projeto) rodando em algum endereço, digite a URL dele no campo
-          ao lado do botão e clique em "Conectar API" — o dashboard passa a calcular tudo ao vivo naquele banco
-          (modo <span class="mono">🟢 API ao vivo</span>). Sem um backend rodando, clicar no botão apenas confirma
-          que não há nada para conectar e mantém o modo offline — isso é esperado, não é um erro.
-        </div>
-      </div>
-      <div class="panel">
-        <h3>Rastreabilidade de camadas de pontos</h3>
-        <div class="desc">Cada camada do pacote de dados original, com contagem real de feições e tipo de origem (source_type). Nenhuma camada foi fundida automaticamente com outra sem verificação de correspondência ponto-a-ponto.</div>
-        <table>
-          <thead><tr><th>Camada</th><th>N</th><th>Arquivo de origem</th><th>Tipo de origem</th><th>Observação</th></tr></thead>
-          <tbody id="fontes-tbody"></tbody>
-        </table>
-      </div>
-      <div class="panel">
-        <h3>Documentação indexável (RAG)</h3>
-        <div class="desc">Documentos técnicos incluídos no pacote, disponíveis para indexação futura em base vetorial (pgvector). Ainda não indexados nesta versão do dashboard.</div>
-        <table>
-          <tbody>
-            <tr><td>Relatorio_Final_Base_Geologica_Solos_Vermelhos_Angola_V03_Figuras_Incorporadas.docx</td></tr>
-            <tr><td>04025C01-RPG-ET-03_R04_V1.docx</td></tr>
-            <tr><td>Analise_Estatistica_Validacao_Solos_Vermelhos_Angola.docx</td></tr>
-            <tr><td>Analise_Estatistica_Validacao_Solos_Vermelhos_Angola_V02_Metodologia_Detalhada.docx</td></tr>
           </tbody>
         </table>
       </div>
@@ -632,7 +655,6 @@ function renderAll(){
   safe('gráficos', renderCharts);
   safe('mancha', renderManchaView);
   safe('qualidade', renderQualityView);
-  safe('fontes', renderFontesView);
   safe('mapa', prepareMap);
   safe('tabela de pontos', renderPontosTable);
 }
@@ -646,14 +668,10 @@ function renderKPIs(){
   const grid = document.getElementById('kpi-grid');
   grid.innerHTML = [
     kpiCard(fmt(k.planilha.N_total_registros),'Total de registros', k.planilha.fonte_arquivo),
-    kpiCard(fmt(k.join_espacial_planilha_geotecnica.dentro_mancha),'Pontos dentro da mancha vigente','cálculo espacial'),
-    kpiCard(fmt(k.join_espacial_planilha_geotecnica.fora_mancha),'Pontos fora da mancha vigente'),
     kpiCard(fmtKm2(k.mancha.area_atual_km2_projeto),'Área da mancha vigente', k.mancha.fonte),
     kpiCard(k.mancha.variacao_liquida_km2_projeto!=null? '+'+fmtKm2(k.mancha.variacao_liquida_km2_projeto):'—','Variação líquida proposta',k.mancha.variacao_liquida_pct_projeto!=null?k.mancha.variacao_liquida_pct_projeto+'%':'','accent-warn'),
     kpiCard(fmt(k.mancha.pontos_reclassificados_geologo),'Pontos reclassificados pelo geólogo'),
     kpiCard(fmt(DATA.provincias.features.length),'Províncias mapeadas'),
-    kpiCard(fmt(k.qualidade.duplicados_por_coordenada_utm),'Duplicidades de coordenada','requer validação','accent-warn'),
-    kpiCard(fmt(k.qualidade.cor_ausente),'Registros sem classificação de cor','','accent-warn'),
   ].join('');
 }
 
@@ -743,23 +761,13 @@ function renderQualityView(){
     kpiCard(fmt(q.colapsividade_ausente),'Colapsividade ausente'),
     kpiCard(fmt(q.subleito_ausente_ou_sem_classificacao),'Subleito ausente/sem classificação'),
     kpiCard(fmt(q.cor_ausente),'Cor ausente'),
-    kpiCard(fmt(q.duplicados_por_coordenada_utm),'Duplicidades de coordenada','','accent-warn'),
   ].join('');
   document.getElementById('q-aashto-raw').textContent = fmt(q.aashto_variantes_grafia_brutas);
   document.getElementById('q-aashto-norm').textContent = fmt(q.aashto_variantes_apos_normalizacao);
   document.getElementById('q-prov-var').textContent = fmt(q.provincias_variantes_texto_distintas);
-  document.getElementById('q-dup').textContent = fmt(q.duplicados_por_coordenada_utm);
   document.getElementById('q-coord-ok').textContent = fmt(p.N_coordenadas_validas);
   document.getElementById('q-coord-null').textContent = fmt(p.N_sem_coordenada);
   document.getElementById('q-coord-bad').textContent = fmt(p.N_coordenadas_suspeitas_fora_angola);
-}
-
-/* ---------- FONTES VIEW ---------- */
-function renderFontesView(){
-  const rows = Object.entries(DATA.kpis.camadas_pontos||{}).map(([key,v])=>`
-    <tr><td>${key}</td><td class="mono">${fmt(v.n)}</td><td>${v.fonte_file}</td><td>${v.source_type}</td><td>${v.aviso||'—'}</td></tr>
-  `).join('');
-  document.getElementById('fontes-tbody').innerHTML = rows;
 }
 
 /* ---------- MAPA ---------- */
@@ -815,6 +823,44 @@ function haversineKm(lat1, lon1, lat2, lon2){
   const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
   const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
   return 2*R*Math.asin(Math.sqrt(a));
+}
+
+/* ---------- CONVERSÃO DE COORDENADAS (graus decimais -> GMS e UTM) ---------- */
+function toDMS(decimal, isLat){
+  const dir = isLat ? (decimal>=0?'N':'S') : (decimal>=0?'E':'W');
+  const abs = Math.abs(decimal);
+  const deg = Math.floor(abs);
+  const minFloat = (abs-deg)*60;
+  const min = Math.floor(minFloat);
+  const sec = (minFloat-min)*60;
+  return `${deg}°${String(min).padStart(2,'0')}'${sec.toFixed(2).padStart(5,'0')}" ${dir}`;
+}
+function formatDMS(lat, lon){
+  return `${toDMS(lat,true)}  ${toDMS(lon,false)}`;
+}
+// Projeção UTM (WGS84), fórmulas de Snyder — validada contra ponto de referência conhecido
+function toUTM(lat, lon){
+  const a = 6378137.0, f = 1/298.257223563, k0 = 0.9996;
+  const e2 = f*(2-f), ep2 = e2/(1-e2);
+  const zone = Math.floor((lon+180)/6)+1;
+  const lon0 = (zone-1)*6-180+3;
+  const latRad = lat*Math.PI/180, lonRad = lon*Math.PI/180, lon0Rad = lon0*Math.PI/180;
+  const N = a/Math.sqrt(1-e2*Math.sin(latRad)**2);
+  const T = Math.tan(latRad)**2;
+  const C = ep2*Math.cos(latRad)**2;
+  const A = Math.cos(latRad)*(lonRad-lon0Rad);
+  const M = a*((1-e2/4-3*e2**2/64-5*e2**3/256)*latRad
+    - (3*e2/8+3*e2**2/32+45*e2**3/1024)*Math.sin(2*latRad)
+    + (15*e2**2/256+45*e2**3/1024)*Math.sin(4*latRad)
+    - (35*e2**3/3072)*Math.sin(6*latRad));
+  let easting = k0*N*(A+(1-T+C)*A**3/6+(5-18*T+T**2+72*C-58*ep2)*A**5/120)+500000;
+  let northing = k0*(M+N*Math.tan(latRad)*(A**2/2+(5-T+9*C+4*C**2)*A**4/24+(61-58*T+T**2+600*C-330*ep2)*A**6/720));
+  if(lat<0) northing += 10000000;
+  return {zone, easting, northing, hemisphere: lat<0?'S':'N'};
+}
+function formatUTM(lat, lon){
+  const u = toUTM(lat, lon);
+  return `${u.zone}${u.hemisphere}  E ${Math.round(u.easting).toLocaleString('pt-PT')}  N ${Math.round(u.northing).toLocaleString('pt-PT')}`;
 }
 
 let map = null, layerRefs = {}, mapBuilt = false, tileOSM = null, tileSat = null;
@@ -893,6 +939,9 @@ function initMap(){
   });
   layerRefs.pontos.addTo(map);
 
+  layerRefs.simulacao = L.layerGroup().addTo(map);
+  if(simZones) renderSimulationOnMap();
+
   document.querySelectorAll('#layers-panel input[data-layer]').forEach(chk=>{
     chk.onchange = () => {
       const lyr = layerRefs[chk.dataset.layer];
@@ -938,7 +987,9 @@ function showInspectPonto(pt){
   document.getElementById('inspect-content').innerHTML = `
     <div class="inspect-field"><div class="k">Identificação</div><div class="v">${pt.identificacao||'—'}</div></div>
     <div class="inspect-field"><div class="k">Obra</div><div class="v">${pt.obra||'—'}</div></div>
-    <div class="inspect-field"><div class="k">Coordenadas</div><div class="v mono">${pt.lat.toFixed(5)}, ${pt.lon.toFixed(5)}</div></div>
+    <div class="inspect-field"><div class="k">Coordenadas (graus decimais)</div><div class="v mono">${pt.lat.toFixed(5)}, ${pt.lon.toFixed(5)}</div></div>
+    <div class="inspect-field"><div class="k">Coordenadas (GMS)</div><div class="v mono" style="font-size:11.5px;">${formatDMS(pt.lat, pt.lon)}</div></div>
+    <div class="inspect-field"><div class="k">Coordenadas (UTM)</div><div class="v mono" style="font-size:11.5px;">${formatUTM(pt.lat, pt.lon)}</div></div>
     <div class="inspect-field"><div class="k">Província</div><div class="v">${pt.provincia||'Não disponível.'}</div></div>
     <div class="inspect-field"><div class="k">Fonte</div><div class="v">${pt.fonte||'Não disponível.'}</div></div>
     <div class="inspect-field"><div class="k">Cor</div><div class="v"><span class="badge" style="background:${corToColor(pt.cor)}"></span>${pt.cor||'Não disponível.'}</div></div>
@@ -949,6 +1000,9 @@ function showInspectPonto(pt){
     <div class="inspect-field"><div class="k">Situação da mancha</div><div class="v">${dentroStr}</div></div>
     <div class="foot-note" style="margin-top:14px;">Modo ${dataSourceMode==='live'?'API ao vivo (PostGIS)':'dados estáticos embutidos'}.</div>
   `;
+  lastInspection = {type:'ponto', lat: pt.lat, lon: pt.lon, dados: pt};
+  document.getElementById('dossie-pdf-btn').style.display = 'block';
+  document.getElementById('dossie-print-btn').style.display = 'block';
 }
 function showInspectProvincia(props){
   const nome = props.nome;
@@ -958,6 +1012,9 @@ function showInspectProvincia(props){
     <div class="inspect-field"><div class="k">Pontos geotécnicos associados</div><div class="v">${rows.length}</div></div>
     <div class="foot-note">Correspondência por texto/geometria entre o nome oficial da província e o campo de origem do ponto — pode divergir devido às ${fmt(DATA.kpis.qualidade.provincias_variantes_texto_distintas)} variantes de grafia detectadas (ver Qualidade dos Dados).</div>
   `;
+  lastInspection = {type:'provincia', nome, rows};
+  document.getElementById('dossie-pdf-btn').style.display = 'block';
+  document.getElementById('dossie-print-btn').style.display = 'block';
 }
 // Investigação de uma coordenada qualquer clicada no mapa (área vazia) — cálculo 100% client-side
 function showInspectLocation(lat, lon){
@@ -977,7 +1034,9 @@ function showInspectLocation(lat, lon){
     </div>`).join('');
 
   document.getElementById('inspect-content').innerHTML = `
-    <div class="inspect-field"><div class="k">Coordenada clicada</div><div class="v mono">${lat.toFixed(5)}, ${lon.toFixed(5)}</div></div>
+    <div class="inspect-field"><div class="k">Coordenada clicada (graus decimais)</div><div class="v mono">${lat.toFixed(5)}, ${lon.toFixed(5)}</div></div>
+    <div class="inspect-field"><div class="k">Coordenada clicada (GMS)</div><div class="v mono" style="font-size:11.5px;">${formatDMS(lat, lon)}</div></div>
+    <div class="inspect-field"><div class="k">Coordenada clicada (UTM)</div><div class="v mono" style="font-size:11.5px;">${formatUTM(lat, lon)}</div></div>
     <div class="inspect-field"><div class="k">Província</div><div class="v">${provFeat ? provFeat.properties.nome : 'Não disponível na base atualmente carregada.'}</div></div>
     <div class="inspect-field"><div class="k">Situação da mancha</div><div class="v">${
       dentroMancha===true ? '<span class="pill in">Dentro da mancha</span>' :
@@ -987,6 +1046,9 @@ function showInspectLocation(lat, lon){
     ${nearestHtml || '<div class="empty-hint">Nenhum ponto encontrado.</div>'}
     <div class="foot-note" style="margin-top:14px;">Calculado no navegador a partir dos ${fmt(pontosNoMapa.length)} pontos carregados — distância em linha reta (haversine), não distância por estrada.</div>
   `;
+  lastInspection = {type:'local', lat, lon, provincia: provFeat ? provFeat.properties.nome : null, dentroMancha, proximos: withDist};
+  document.getElementById('dossie-pdf-btn').style.display = 'block';
+  document.getElementById('dossie-print-btn').style.display = 'block';
 }
 
 
@@ -1009,15 +1071,13 @@ function renderPontosTable(){
   if(qp.get('provincia')) provSel.value = qp.get('provincia');
   if(qp.get('cor')) corSel.value = qp.get('cor');
   if(qp.get('aashto')) aashtoSel.value = qp.get('aashto');
-  if(qp.get('mancha')) document.getElementById('f-mancha').value = qp.get('mancha');
   if(qp.get('busca')) document.getElementById('f-search').value = qp.get('busca');
 
   function render(){
-    const fp=provSel.value, fc=corSel.value, fa=aashtoSel.value, fm=document.getElementById('f-mancha').value;
+    const fp=provSel.value, fc=corSel.value, fa=aashtoSel.value;
     const fs=document.getElementById('f-search').value.toLowerCase();
     let rows = DATA.pontos.filter(p=>
       (!fp||p.provincia===fp) && (!fc||p.cor===fc) && (!fa||p.aashto===fa) &&
-      (fm===''||String(p.dentro_mancha)===fm) &&
       (!fs || (String(p.identificacao||'').toLowerCase().includes(fs) || String(p.obra||'').toLowerCase().includes(fs)))
     );
     currentFilteredPoints = rows;
@@ -1030,11 +1090,9 @@ function renderPontosTable(){
         <td><span class="badge" style="background:${corToColor(p.cor)}"></span>${p.cor||'Não disponível'}</td>
         <td>${p.aashto||'Não disponível'}</td><td>${p.sucs||'Não disponível'}</td>
         <td>${p.colapsividade||'Não disponível'}</td>
-        <td>${p.dentro_mancha===true?'Dentro':p.dentro_mancha===false?'Fora':'—'}</td>
       </tr>`).join('');
   }
   provSel.onchange = render; corSel.onchange = render; aashtoSel.onchange = render;
-  document.getElementById('f-mancha').onchange = render;
   document.getElementById('f-search').oninput = render;
   render();
 
@@ -1073,7 +1131,7 @@ function exportPontosGeoJSON(){
 }
 function copyShareLink(){
   const params = new URLSearchParams();
-  const map1 = {'f-provincia':'provincia','f-cor':'cor','f-aashto':'aashto','f-mancha':'mancha','f-search':'busca'};
+  const map1 = {'f-provincia':'provincia','f-cor':'cor','f-aashto':'aashto','f-search':'busca'};
   Object.entries(map1).forEach(([id,key])=>{
     const el = document.getElementById(id);
     if(el && el.value) params.set(key, el.value);
@@ -1249,6 +1307,298 @@ document.getElementById('dbscan-run').addEventListener('click', ()=>{
   if(!map){ alert('Abra a aba "Mapa & investigação" primeiro.'); return; }
   runClusterAnalysis();
 });
+
+/* ---------- DOSSIÊ EM PDF (100% client-side, sem backend) ---------- */
+let lastInspection = null;
+
+// Desenha o contorno de Angola + mancha vigente + marcador, em vetor puro (sem captura de tela)
+function drawMiniMapPDF(doc, x, y, w, h, markerLat, markerLon){
+  const allLons = [], allLats = [];
+  DATA.provincias.features.forEach(f => collectCoords(f.geometry, allLons, allLats));
+  const minLon = Math.min(...allLons), maxLon = Math.max(...allLons);
+  const minLat = Math.min(...allLats), maxLat = Math.max(...allLats);
+  const scaleX = w / (maxLon - minLon), scaleY = h / (maxLat - minLat);
+  const scale = Math.min(scaleX, scaleY);
+  const offX = x + (w - (maxLon-minLon)*scale)/2;
+  const offY = y + (h - (maxLat-minLat)*scale)/2;
+  const px = lon => offX + (lon-minLon)*scale;
+  const py = lat => offY + (maxLat-lat)*scale; // inverte Y (lat cresce para cima, PDF cresce para baixo)
+
+  function drawRing(ring, color, fill){
+    if(ring.length < 2) return;
+    doc.setDrawColor(color[0],color[1],color[2]);
+    if(fill){ doc.setFillColor(fill[0],fill[1],fill[2]); }
+    const pts = ring.map(([lon,lat]) => [px(lon), py(lat)]);
+    doc.setLineWidth(0.1);
+    for(let i=0;i<pts.length-1;i++){
+      doc.line(pts[i][0], pts[i][1], pts[i+1][0], pts[i+1][1]);
+    }
+  }
+  function drawGeom(geom, color){
+    if(!geom) return;
+    if(geom.type === 'Polygon'){ geom.coordinates.forEach(r => drawRing(r, color)); }
+    else if(geom.type === 'MultiPolygon'){ geom.coordinates.forEach(poly => poly.forEach(r => drawRing(r, color))); }
+  }
+
+  DATA.provincias.features.forEach(f => drawGeom(f.geometry, [62,147,163]));
+  DATA.manchaAtual.features.forEach(f => drawGeom(f.geometry, [198,85,58]));
+
+  if(markerLat != null && markerLon != null){
+    doc.setFillColor(198,85,58);
+    doc.circle(px(markerLon), py(markerLat), 1.6, 'F');
+    doc.setDrawColor(10,23,32);
+    doc.setLineWidth(0.15);
+    doc.circle(px(markerLon), py(markerLat), 1.6, 'S');
+  }
+}
+function collectCoords(geom, lons, lats){
+  const walk = (c) => {
+    if(typeof c[0] === 'number'){ lons.push(c[0]); lats.push(c[1]); }
+    else c.forEach(walk);
+  };
+  if(geom && geom.coordinates) walk(geom.coordinates);
+}
+
+function pdfSectionTitle(doc, text, y){
+  doc.setFontSize(11); doc.setFont(undefined,'bold'); doc.setTextColor(20,40,50);
+  doc.text(text, 15, y);
+  doc.setDrawColor(210,210,210); doc.line(15, y+1.5, 195, y+1.5);
+  return y + 7;
+}
+function pdfField(doc, label, value, y){
+  doc.setFontSize(9); doc.setFont(undefined,'bold'); doc.setTextColor(90,100,105);
+  doc.text(label+':', 15, y);
+  doc.setFont(undefined,'normal'); doc.setTextColor(30,30,30);
+  const text = value==null || value==='' ? 'Não disponível na base atualmente carregada.' : String(value);
+  const lines = doc.splitTextToSize(text, 130);
+  doc.text(lines, 55, y);
+  return y + Math.max(6, lines.length*4.2);
+}
+
+function generateDossiePDF(){
+  if(!lastInspection || typeof window.jspdf === 'undefined'){
+    alert('Investigue um ponto ou área no mapa antes de gerar o dossiê.');
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'a4'});
+  const insp = lastInspection;
+
+  doc.setFillColor(10,23,32);
+  doc.rect(0,0,210,22,'F');
+  doc.setTextColor(255,255,255); doc.setFontSize(15); doc.setFont(undefined,'bold');
+  doc.text('GeoTec Angola — Dossiê de Investigação', 15, 13);
+  doc.setFontSize(8.5); doc.setFont(undefined,'normal'); doc.setTextColor(200,215,220);
+  const agora = new Date();
+  doc.text(`Gerado em ${agora.toLocaleString('pt-PT')} · modo ${dataSourceMode==='live'?'API ao vivo':'dados estáticos offline'}`, 15, 18);
+
+  let y = 32;
+  y = pdfSectionTitle(doc, '1. LOCALIZAÇÃO', y);
+
+  let lat=null, lon=null, provincia=null, dentroMancha=null;
+  if(insp.type === 'ponto'){
+    lat=insp.dados.lat; lon=insp.dados.lon; provincia=insp.dados.provincia; dentroMancha=insp.dados.dentro_mancha;
+    y = pdfField(doc, 'Identificação', insp.dados.identificacao, y);
+    y = pdfField(doc, 'Obra', insp.dados.obra, y);
+  } else if(insp.type === 'local'){
+    lat=insp.lat; lon=insp.lon; provincia=insp.provincia; dentroMancha=insp.dentroMancha;
+  } else if(insp.type === 'provincia'){
+    provincia = insp.nome;
+  }
+  y = pdfField(doc, 'Coordenadas (graus dec.)', lat!=null ? `${lat.toFixed(5)}, ${lon.toFixed(5)}` : null, y);
+  y = pdfField(doc, 'Coordenadas (GMS)', lat!=null ? formatDMS(lat, lon) : null, y);
+  y = pdfField(doc, 'Coordenadas (UTM)', lat!=null ? formatUTM(lat, lon) : null, y);
+  y = pdfField(doc, 'Província', provincia, y);
+  y = pdfField(doc, 'Situação da mancha vigente', dentroMancha===true?'Dentro da mancha':dentroMancha===false?'Fora da mancha':null, y);
+
+  y += 3;
+  y = pdfSectionTitle(doc, '2. MAPA (esquemático, vetorial)', y);
+  drawMiniMapPDF(doc, 15, y, 85, 70, lat, lon);
+  doc.setFontSize(7.5); doc.setTextColor(120,120,120);
+  doc.text('Azul: limites provinciais · Vermelho: mancha de solos vermelhos vigente · Ponto: local investigado', 15, y+74);
+  y += 80;
+
+  if(insp.type === 'ponto'){
+    y = pdfSectionTitle(doc, '3. CLASSIFICAÇÃO GEOTÉCNICA (dado observado)', y);
+    y = pdfField(doc, 'Fonte', insp.dados.fonte, y);
+    y = pdfField(doc, 'Cor', insp.dados.cor, y);
+    y = pdfField(doc, 'AASHTO', insp.dados.aashto, y);
+    y = pdfField(doc, 'SUCS', insp.dados.sucs, y);
+    y = pdfField(doc, 'Colapsividade', insp.dados.colapsividade, y);
+    y = pdfField(doc, 'Comportamento subleito', insp.dados.subleito, y);
+  }
+
+  if(insp.type === 'local' && insp.proximos && insp.proximos.length){
+    y += 3;
+    y = pdfSectionTitle(doc, '3. PONTOS MAIS PRÓXIMOS (resultado calculado)', y);
+    insp.proximos.forEach(({p,d}) => {
+      y = pdfField(doc, `${d.toFixed(2)} km`, `${p.identificacao||'—'} · ${p.cor||'sem cor'} · AASHTO ${p.aashto||'—'} · ${p.provincia||'—'}`, y);
+    });
+  }
+
+  if(insp.type === 'provincia'){
+    y += 3;
+    y = pdfSectionTitle(doc, '3. RESUMO DA PROVÍNCIA (resultado calculado)', y);
+    y = pdfField(doc, 'Pontos geotécnicos associados', insp.rows.length, y);
+  }
+
+  if(y > 230) { doc.addPage(); y = 20; }
+  y += 4;
+  y = pdfSectionTitle(doc, '4. INTERPRETAÇÃO E LIMITAÇÕES', y);
+  doc.setFontSize(8.5); doc.setFont(undefined,'italic'); doc.setTextColor(90,90,90);
+  const aviso = 'Os resultados apresentados constituem interpretação regional baseada na base de dados disponível ' +
+    'e não substituem investigação geotécnica específica de campo. Interpretação por IA não disponível nesta versão ' +
+    '— todos os valores acima são dados observados ou resultados calculados diretamente, sem inferência automática.';
+  const lines = doc.splitTextToSize(aviso, 180);
+  doc.text(lines, 15, y);
+  y += lines.length*4.2 + 6;
+
+  doc.setDrawColor(220,220,220); doc.line(15, 282, 195, 282);
+  doc.setFontSize(7.5); doc.setTextColor(140,140,140); doc.setFont(undefined,'normal');
+  doc.text('GeoTec Angola — Plataforma de Inteligência Geotécnica · gerado no navegador, sem envio de dados a servidores.', 15, 287);
+
+  const filename = `dossie_${lat!=null ? lat.toFixed(3)+'_'+lon.toFixed(3) : (provincia||'local')}.pdf`.replace(/\s+/g,'_');
+  doc.save(filename);
+}
+document.getElementById('dossie-pdf-btn').addEventListener('click', generateDossiePDF);
+document.getElementById('dossie-print-btn').addEventListener('click', ()=> window.print());
+
+/* ---------- SIMULADOR DE CENÁRIOS (hull convexo + buffer, 100% client-side) ---------- */
+let simZones = null; // {expansao:[{hull,count,areaKm2}], retracao:[...]}
+
+// Envoltória convexa — monotone chain (Andrew), pontos em [lon,lat]
+function convexHull(points){
+  const pts = points.slice().sort((a,b)=> a[0]-b[0] || a[1]-b[1]);
+  if(pts.length <= 2) return pts;
+  const cross = (o,a,b) => (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0]);
+  const lower = [];
+  for(const p of pts){
+    while(lower.length>=2 && cross(lower[lower.length-2], lower[lower.length-1], p) <= 0) lower.pop();
+    lower.push(p);
+  }
+  const upper = [];
+  for(let i=pts.length-1;i>=0;i--){
+    const p = pts[i];
+    while(upper.length>=2 && cross(upper[upper.length-2], upper[upper.length-1], p) <= 0) upper.pop();
+    upper.push(p);
+  }
+  upper.pop(); lower.pop();
+  return lower.concat(upper);
+}
+// Área aproximada em km² via shoelace, projeção equirretangular local (referência: latitude média do polígono)
+function polygonAreaKm2(hull){
+  if(hull.length < 3) return 0;
+  const latRef = hull.reduce((s,p)=>s+p[1],0)/hull.length;
+  const kmPerDegLat = 111.32, kmPerDegLon = 111.32*Math.cos(latRef*Math.PI/180);
+  const xy = hull.map(([lon,lat]) => [lon*kmPerDegLon, lat*kmPerDegLat]);
+  let area = 0;
+  for(let i=0;i<xy.length;i++){
+    const [x1,y1] = xy[i], [x2,y2] = xy[(i+1)%xy.length];
+    area += x1*y2 - x2*y1;
+  }
+  return Math.abs(area)/2;
+}
+// Expande o hull radialmente a partir do centróide por bufferKm (aproximação visual, não um buffer geométrico exato)
+function bufferHull(hull, bufferKm){
+  if(bufferKm <= 0 || hull.length < 3) return hull;
+  const cLon = hull.reduce((s,p)=>s+p[0],0)/hull.length;
+  const cLat = hull.reduce((s,p)=>s+p[1],0)/hull.length;
+  const kmPerDegLat = 111.32, kmPerDegLon = 111.32*Math.cos(cLat*Math.PI/180);
+  return hull.map(([lon,lat])=>{
+    const dx = (lon-cLon)*kmPerDegLon, dy = (lat-cLat)*kmPerDegLat;
+    const dist = Math.sqrt(dx*dx+dy*dy) || 1;
+    const factor = (dist+bufferKm)/dist;
+    return [cLon + dx*factor/kmPerDegLon, cLat + dy*factor/kmPerDegLat];
+  });
+}
+// Círculo aproximado (octógono) para pontos isolados, quando "ignorar isolados" está desmarcado
+function circleHull(lon, lat, radiusKm, nSides=8){
+  const kmPerDegLat = 111.32, kmPerDegLon = 111.32*Math.cos(lat*Math.PI/180);
+  const pts = [];
+  for(let i=0;i<nSides;i++){
+    const ang = (i/nSides)*2*Math.PI;
+    pts.push([lon + (radiusKm*Math.cos(ang))/kmPerDegLon, lat + (radiusKm*Math.sin(ang))/kmPerDegLat]);
+  }
+  return pts;
+}
+
+function buildZonesFromPoints(points, eps, minPts, bufferKm, ignorarIsolados){
+  if(!points.length) return [];
+  const {labels} = dbscan(points, eps, minPts);
+  const byCluster = {};
+  points.forEach((p,i)=>{
+    const lbl = labels[i];
+    if(lbl === -1){
+      if(!ignorarIsolados){ byCluster['iso_'+i] = [p]; }
+      return;
+    }
+    (byCluster[lbl] = byCluster[lbl]||[]).push(p);
+  });
+  const zones = [];
+  Object.entries(byCluster).forEach(([key, pts])=>{
+    let hull;
+    if(pts.length === 1){ hull = circleHull(pts[0].lon, pts[0].lat, Math.max(bufferKm,1)); }
+    else {
+      hull = convexHull(pts.map(p=>[p.lon,p.lat]));
+      hull = bufferHull(hull, bufferKm);
+    }
+    zones.push({hull, count: pts.length, areaKm2: polygonAreaKm2(hull), isolado: String(key).startsWith('iso_')});
+  });
+  return zones.sort((a,b)=>b.count-a.count);
+}
+
+function runSimulation(){
+  const eps = parseFloat(document.getElementById('sim-eps').value) || 15;
+  const minPts = parseInt(document.getElementById('sim-minpts').value) || 4;
+  const bufferKm = parseFloat(document.getElementById('sim-buffer').value) || 0;
+  const ignorarIsolados = document.getElementById('sim-ignorar-isolados').checked;
+
+  const vermelhoFora = pontosNoMapa.filter(p => p.cor && p.cor.toLowerCase().includes('vermelho') && p.dentro_mancha === false);
+  const naoVermelhoDentro = pontosNoMapa.filter(p => p.cor && !p.cor.toLowerCase().includes('vermelho') && p.dentro_mancha === true);
+
+  const summaryEl = document.getElementById('sim-summary');
+  if(vermelhoFora.length + naoVermelhoDentro.length > 3000){
+    summaryEl.innerHTML = '<span style="color:var(--warn);">Muitos pontos para simular ao vivo no navegador — considere filtrar por província primeiro.</span>';
+    return;
+  }
+  summaryEl.textContent = 'calculando…';
+
+  setTimeout(()=>{
+    const expansao = buildZonesFromPoints(vermelhoFora, eps, minPts, bufferKm, ignorarIsolados);
+    const retracao = buildZonesFromPoints(naoVermelhoDentro, eps, minPts, bufferKm, ignorarIsolados);
+    simZones = {expansao, retracao};
+
+    const areaExp = expansao.reduce((s,z)=>s+z.areaKm2,0);
+    const areaRet = retracao.reduce((s,z)=>s+z.areaKm2,0);
+    summaryEl.innerHTML = `<b>${expansao.length}</b> zonas de expansão propostas (≈ ${fmtKm2(areaExp)}) ·
+      <b>${retracao.length}</b> zonas de retração propostas (≈ ${fmtKm2(areaRet)}) —
+      calculado sobre ${fmt(vermelhoFora.length)} pontos vermelhos fora + ${fmt(naoVermelhoDentro.length)} pontos não-vermelhos dentro.`;
+
+    document.getElementById('sim-expansao-table').innerHTML = expansao.length ? expansao.map((z,i)=>`
+      <tr><td>Zona E${i+1}</td><td class="mono">${z.count} pts</td><td class="mono">${fmtKm2(z.areaKm2)}</td></tr>
+    `).join('') : '<tr><td class="empty-hint">Nenhuma zona encontrada com estes parâmetros.</td></tr>';
+    document.getElementById('sim-retracao-table').innerHTML = retracao.length ? retracao.map((z,i)=>`
+      <tr><td>Zona R${i+1}</td><td class="mono">${z.count} pts</td><td class="mono">${fmtKm2(z.areaKm2)}</td></tr>
+    `).join('') : '<tr><td class="empty-hint">Nenhuma zona encontrada com estes parâmetros.</td></tr>';
+
+    if(map) renderSimulationOnMap();
+  }, 30);
+}
+function renderSimulationOnMap(){
+  if(!layerRefs.simulacao || !simZones) return;
+  layerRefs.simulacao.clearLayers();
+  const addZones = (zones, color, prefix) => {
+    zones.forEach((z,i)=>{
+      const latlngs = z.hull.map(([lon,lat])=>[lat,lon]);
+      const poly = L.polygon(latlngs, {color, weight:1.5, fillColor:color, fillOpacity:0.28, dashArray:'5,4'});
+      poly.bindTooltip(`${prefix}${i+1}: ${z.count} pontos, ≈ ${fmtKm2(z.areaKm2)}`);
+      layerRefs.simulacao.addLayer(poly);
+    });
+  };
+  addZones(simZones.expansao, '#5FA98C', 'Expansão E');
+  addZones(simZones.retracao, '#9C6EBE', 'Retração R');
+}
+document.getElementById('sim-run-btn').addEventListener('click', runSimulation);
 
 bootstrap().catch(e => {
   console.error('Erro inesperado no bootstrap, forçando modo offline:', e);
