@@ -1113,6 +1113,8 @@ document.getElementById('copy-link-btn').addEventListener('click', copyShareLink
 
 /* ---------- GEOLOGIA E PEDOLOGIA (carregamento sob demanda) ---------- */
 let geologiaLayer = null, pedologiaLayer = null;
+let geologiaData = null, pedologiaData = null;
+let geologiaLoadFailed = false, pedologiaLoadFailed = false;
 const geoPalette = ['#3E93A3','#BE9464','#C6553A','#5FA98C','#D2A24C','#6E7FBE','#9C6EBE','#5E7982',
   '#4C8FBE','#BE4C8F','#8FBE4C','#BE7A4C','#7A6EBE','#BEA34C','#4CBEA8'];
 const geoColorCache = {};
@@ -1122,26 +1124,36 @@ function colorForCategory(cat, cache){
   return cache[cat];
 }
 
+// Garante que os dados (não necessariamente a camada visual) estejam carregados —
+// usado tanto pelo toggle do mapa quanto pela geração do dossiê em PDF.
+async function ensureGeologiaData(){
+  if(geologiaData || geologiaLoadFailed) return geologiaData;
+  try { geologiaData = await fetchJSON('data/geologia.geojson', 20000); }
+  catch(e){ geologiaLoadFailed = true; console.error('Erro ao carregar geologia.geojson', e); }
+  return geologiaData;
+}
+async function ensurePedologiaData(){
+  if(pedologiaData || pedologiaLoadFailed) return pedologiaData;
+  try { pedologiaData = await fetchJSON('data/pedologia.geojson', 20000); }
+  catch(e){ pedologiaLoadFailed = true; console.error('Erro ao carregar pedologia.geojson', e); }
+  return pedologiaData;
+}
+
 async function toggleGeologia(checked){
   const statusEl = document.getElementById('geologia-status');
   if(checked){
     if(!geologiaLayer){
       statusEl.textContent = 'carregando…';
-      try{
-        const data = await fetchJSON('data/geologia.geojson', 20000);
-        geologiaLayer = L.geoJSON(data, {
-          style: f => ({color:'#0A1720', weight:0.3, fillColor: colorForCategory(f.properties.MAJ_UNIT, geoColorCache), fillOpacity:0.45}),
-          onEachFeature: (f,l) => l.on('click', (e)=>{
-            L.DomEvent.stopPropagation(e);
-            showInspectGeologia(f.properties);
-          })
-        });
-        statusEl.textContent = `${data.features.length} unidades`;
-      } catch(e){
-        statusEl.textContent = 'falhou ao carregar';
-        console.error('Erro ao carregar geologia.geojson', e);
-        return;
-      }
+      const data = await ensureGeologiaData();
+      if(!data){ statusEl.textContent = 'falhou ao carregar'; return; }
+      geologiaLayer = L.geoJSON(data, {
+        style: f => ({color:'#0A1720', weight:0.3, fillColor: colorForCategory(f.properties.MAJ_UNIT, geoColorCache), fillOpacity:0.45}),
+        onEachFeature: (f,l) => l.on('click', (e)=>{
+          L.DomEvent.stopPropagation(e);
+          showInspectGeologia(f.properties);
+        })
+      });
+      statusEl.textContent = `${data.features.length} unidades`;
     }
     map.addLayer(geologiaLayer);
   } else if(geologiaLayer){
@@ -1153,21 +1165,16 @@ async function togglePedologia(checked){
   if(checked){
     if(!pedologiaLayer){
       statusEl.textContent = 'carregando…';
-      try{
-        const data = await fetchJSON('data/pedologia.geojson', 20000);
-        pedologiaLayer = L.geoJSON(data, {
-          style: f => ({color:'#0A1720', weight:0.3, fillColor: colorForCategory(f.properties.DOMSOILS, {}), fillOpacity:0.45}),
-          onEachFeature: (f,l) => l.on('click', (e)=>{
-            L.DomEvent.stopPropagation(e);
-            showInspectPedologia(f.properties);
-          })
-        });
-        statusEl.textContent = `${data.features.length} unidades`;
-      } catch(e){
-        statusEl.textContent = 'falhou ao carregar';
-        console.error('Erro ao carregar pedologia.geojson', e);
-        return;
-      }
+      const data = await ensurePedologiaData();
+      if(!data){ statusEl.textContent = 'falhou ao carregar'; return; }
+      pedologiaLayer = L.geoJSON(data, {
+        style: f => ({color:'#0A1720', weight:0.3, fillColor: colorForCategory(f.properties.DOMSOILS, {}), fillOpacity:0.45}),
+        onEachFeature: (f,l) => l.on('click', (e)=>{
+          L.DomEvent.stopPropagation(e);
+          showInspectPedologia(f.properties);
+        })
+      });
+      statusEl.textContent = `${data.features.length} unidades`;
     }
     map.addLayer(pedologiaLayer);
   } else if(pedologiaLayer){
@@ -1301,6 +1308,15 @@ function drawMiniMapPDF(doc, x, y, w, h, markerLat, markerLon){
   }
 
   DATA.provincias.features.forEach(f => drawGeom(f.geometry, [62,147,163]));
+
+  // hachura na província onde está o ponto investigado
+  if(markerLat != null && markerLon != null){
+    const provFeat = pointInFeatureCollection(markerLon, markerLat, DATA.provincias);
+    if(provFeat){
+      drawProvinceHatch(doc, provFeat.geometry, px, py, minLon, maxLon, minLat, maxLat);
+    }
+  }
+
   DATA.manchaAtual.features.forEach(f => drawGeom(f.geometry, [198,85,58]));
 
   if(markerLat != null && markerLon != null){
@@ -1309,6 +1325,25 @@ function drawMiniMapPDF(doc, x, y, w, h, markerLat, markerLon){
     doc.setDrawColor(10,23,32);
     doc.setLineWidth(0.15);
     doc.circle(px(markerLon), py(markerLat), 1.6, 'S');
+  }
+}
+// Hachura diagonal aproximada, recortada pela geometria real da província (funciona mesmo com buracos)
+function drawProvinceHatch(doc, geometry, px, py, minLon, maxLon, minLat, maxLat){
+  doc.setDrawColor(62,147,163);
+  doc.setLineWidth(0.08);
+  const spacing = (maxLon - minLon) / 55;
+  const step = (maxLat - minLat) / 160;
+  if(!(spacing > 0) || !(step > 0)) return;
+  for(let offset = minLon - maxLat; offset <= maxLon - minLat; offset += spacing){
+    let prevIn = false, prevLon = null, prevLat = null;
+    for(let lat = minLat; lat <= maxLat; lat += step){
+      const lon = offset + lat;
+      const isIn = lon >= minLon && lon <= maxLon && pointInGeometry(lon, lat, geometry);
+      if(isIn && prevIn){
+        doc.line(px(prevLon), py(prevLat), px(lon), py(lat));
+      }
+      prevIn = isIn; prevLon = lon; prevLat = lat;
+    }
   }
 }
 function collectCoords(geom, lons, lats){
@@ -1326,20 +1361,25 @@ function pdfSectionTitle(doc, text, y){
   return y + 7;
 }
 function pdfField(doc, label, value, y){
-  doc.setFontSize(9); doc.setFont(undefined,'bold'); doc.setTextColor(90,100,105);
-  doc.text(label+':', 15, y);
-  doc.setFont(undefined,'normal'); doc.setTextColor(30,30,30);
+  doc.setFontSize(8); doc.setFont(undefined,'bold'); doc.setTextColor(110,120,125);
+  doc.text(label.toUpperCase()+':', 15, y);
+  y += 4.3;
+  doc.setFontSize(10.5); doc.setFont(undefined,'normal'); doc.setTextColor(25,25,25);
   const text = value==null || value==='' ? 'Não disponível na base atualmente carregada.' : String(value);
-  const lines = doc.splitTextToSize(text, 130);
-  doc.text(lines, 55, y);
-  return y + Math.max(6, lines.length*4.2);
+  const lines = doc.splitTextToSize(text, 178);
+  doc.text(lines, 15, y);
+  return y + lines.length*4.6 + 3.5;
 }
 
-function generateDossiePDF(){
+async function generateDossiePDF(){
   if(!lastInspection || typeof window.jspdf === 'undefined'){
     alert('Investigue um ponto ou área no mapa antes de gerar o dossiê.');
     return;
   }
+  const btn = document.getElementById('dossie-pdf-btn');
+  const originalLabel = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Gerando…';
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({unit:'mm', format:'a4'});
   const insp = lastInspection;
@@ -1374,10 +1414,11 @@ function generateDossiePDF(){
   y = pdfSectionTitle(doc, '2. MAPA (esquemático, vetorial)', y);
   drawMiniMapPDF(doc, 15, y, 85, 70, lat, lon);
   doc.setFontSize(7.5); doc.setTextColor(120,120,120);
-  doc.text('Azul: limites provinciais · Vermelho: mancha de solos vermelhos vigente · Ponto: local investigado', 15, y+74);
+  doc.text('Azul: limites provinciais (hachurado = província do ponto) · Vermelho: mancha vigente · Ponto: local investigado', 15, y+74);
   y += 80;
 
   if(insp.type === 'ponto'){
+    if(y > 230) { doc.addPage(); y = 20; }
     y = pdfSectionTitle(doc, '3. CLASSIFICAÇÃO GEOTÉCNICA (dado observado)', y);
     y = pdfField(doc, 'Cor', insp.dados.cor, y);
     y = pdfField(doc, 'AASHTO', insp.dados.aashto, y);
@@ -1387,6 +1428,7 @@ function generateDossiePDF(){
   }
 
   if(insp.type === 'local' && insp.proximos && insp.proximos.length){
+    if(y > 220) { doc.addPage(); y = 20; }
     y += 3;
     y = pdfSectionTitle(doc, '3. PONTOS MAIS PRÓXIMOS (resultado calculado)', y);
     insp.proximos.forEach(({p,d}) => {
@@ -1395,30 +1437,71 @@ function generateDossiePDF(){
   }
 
   if(insp.type === 'provincia'){
+    if(y > 240) { doc.addPage(); y = 20; }
     y += 3;
     y = pdfSectionTitle(doc, '3. RESUMO DA PROVÍNCIA (resultado calculado)', y);
     y = pdfField(doc, 'Pontos geotécnicos associados', insp.rows.length, y);
   }
 
-  if(y > 230) { doc.addPage(); y = 20; }
+  // 5. GEOLOGIA e 6. PEDOLOGIA — busca a unidade que contém o ponto investigado
+  if(lat != null && lon != null){
+    const [geo, pedo] = await Promise.all([ensureGeologiaData(), ensurePedologiaData()]);
+
+    if(y > 230) { doc.addPage(); y = 20; }
+    y += 3;
+    y = pdfSectionTitle(doc, '5. GEOLOGIA', y);
+    const geoFeat = geo ? pointInFeatureCollection(lon, lat, geo) : null;
+    if(geoFeat){
+      const p = geoFeat.properties;
+      y = pdfField(doc, 'Unidade / Supergrupo', p.MAJ_UNIT, y);
+      y = pdfField(doc, 'Grupo', p.SUB_UNIT1, y);
+      y = pdfField(doc, 'Sistema / era', p.SYSTEM, y);
+      y = pdfField(doc, 'Idade (Ma)', (p.MIN_AGE && p.MAX_AGE) ? `${p.MIN_AGE} – ${p.MAX_AGE}` : null, y);
+      y = pdfField(doc, 'Litologia', p.DESCRIP, y);
+    } else {
+      y = pdfField(doc, 'Unidade geológica', geo ? null : 'Camada de geologia não pôde ser carregada nesta geração.', y);
+    }
+
+    if(y > 230) { doc.addPage(); y = 20; }
+    y += 3;
+    y = pdfSectionTitle(doc, '6. PEDOLOGIA', y);
+    const pedoFeat = pedo ? pointInFeatureCollection(lon, lat, pedo) : null;
+    if(pedoFeat){
+      const p = pedoFeat.properties;
+      y = pdfField(doc, 'Solo dominante', p.SOILS, y);
+      y = pdfField(doc, 'Classe WRB', p.WRB, y);
+      y = pdfField(doc, 'Código WRB', p.CODE_WRB, y);
+      y = pdfField(doc, 'Relevo (landform)', p.LANDFORM, y);
+      y = pdfField(doc, 'Litologia de origem', p.LITHOLOGY, y);
+    } else {
+      y = pdfField(doc, 'Unidade pedológica', pedo ? null : 'Camada de pedologia não pôde ser carregada nesta geração.', y);
+    }
+  }
+
+  if(y > 250) { doc.addPage(); y = 20; }
   y += 4;
-  y = pdfSectionTitle(doc, '4. INTERPRETAÇÃO E LIMITAÇÕES', y);
+  y = pdfSectionTitle(doc, '7. INTERPRETAÇÃO E LIMITAÇÕES', y);
   doc.setFontSize(8.5); doc.setFont(undefined,'italic'); doc.setTextColor(90,90,90);
   const aviso = 'Os resultados apresentados constituem interpretação regional baseada na base de dados disponível ' +
     'e não substituem investigação geotécnica específica de campo. Interpretação por IA não disponível nesta versão ' +
-    '— todos os valores acima são dados observados ou resultados calculados diretamente, sem inferência automática.';
+    '— todos os valores acima são dados observados ou resultados calculados diretamente, sem inferência automática. ' +
+    'As seções de Geologia e Pedologia mostram a unidade cartográfica que contém o ponto, obtida por interseção espacial ' +
+    'com as camadas do projeto — não substituem sondagem ou ensaio de campo.';
   const lines = doc.splitTextToSize(aviso, 180);
   doc.text(lines, 15, y);
   y += lines.length*4.2 + 6;
 
-  doc.setDrawColor(220,220,220); doc.line(15, 282, 195, 282);
+  if(y > 275) { doc.addPage(); y = 270; }
+  doc.setDrawColor(220,220,220); doc.line(15, Math.max(y,275), 195, Math.max(y,275));
   doc.setFontSize(7.5); doc.setTextColor(140,140,140); doc.setFont(undefined,'normal');
-  doc.text('GeoTec Angola — Plataforma de Inteligência Geotécnica · gerado no navegador, sem envio de dados a servidores.', 15, 287);
+  doc.text('GeoTec Angola — Plataforma de Inteligência Geotécnica · gerado no navegador, sem envio de dados a servidores.', 15, Math.max(y,275)+5);
 
   const filename = `dossie_${lat!=null ? lat.toFixed(3)+'_'+lon.toFixed(3) : (provincia||'local')}.pdf`.replace(/\s+/g,'_');
   doc.save(filename);
+
+  btn.disabled = false; btn.textContent = originalLabel;
 }
-document.getElementById('dossie-pdf-btn').addEventListener('click', generateDossiePDF);
+document.getElementById('dossie-pdf-btn').addEventListener('click', () => generateDossiePDF());
 document.getElementById('dossie-print-btn').addEventListener('click', ()=> window.print());
 
 /* ---------- SIMULADOR DE CENÁRIOS (hull convexo + buffer, 100% client-side) ---------- */
