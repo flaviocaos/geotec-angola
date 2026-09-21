@@ -210,12 +210,6 @@
           <div class="chart-box"><canvas id="chart-provincia"></canvas></div>
         </div>
       </div>
-
-      <div class="panel">
-        <h3>Origem dos registros (fonte)</h3>
-        <div class="desc">Distribuição por empresa/entidade responsável pelo levantamento (campo "FONTE" da planilha).</div>
-        <div class="chart-box" style="height:280px;"><canvas id="chart-fonte"></canvas></div>
-      </div>
     </div>
 
     <!-- ================= MAPA ================= -->
@@ -287,7 +281,7 @@
           </div>
           <div class="layer-group">
             <h4>FILTRAR PONTOS POR COR</h4>
-            <div id="cor-filters"></div>
+            <select id="cor-filter-select" style="width:100%;"></select>
           </div>
           <div class="foot-note" id="map-footnote">Clique em qualquer ponto, província ou área vazia do mapa para investigar o local. Pontos fora dos limites administrativos de Angola não são exibidos (ver Qualidade dos Dados).</div>
         </div>
@@ -706,7 +700,6 @@ function renderCharts(){
   barChart('chart-colaps', k.colapsividade, {title:'Potencial de colapsividade', horizontal:true, color:'#D2A24C', top:6});
   barChart('chart-subleito', k.subleito, {title:'Comportamento como subleito', horizontal:true, color:'#5FA98C', top:8});
   barChart('chart-provincia', k.provincia_texto_planilha, {title:'Registros por província', horizontal:true, top:15, color:'#6E7FBE'});
-  barChart('chart-fonte', k.fonte, {title:'Registros por fonte/entidade', horizontal:true, top:20, color:'#4C8FBE'});
 }
 
 /* ---------- MANCHA VIEW ---------- */
@@ -930,14 +923,11 @@ function initMap(){
     };
   });
 
-  const cores = Object.keys(DATA.kpis.cor||{}).filter(c=>c!=='Não informado');
-  document.getElementById('cor-filters').innerHTML = cores.map(c=>`
-    <div class="layer-row"><input type="checkbox" checked data-cor-filter="${c}">
-      <span class="badge" style="background:${corToColor(c)}"></span>${c}
-    </div>`).join('');
-  document.querySelectorAll('[data-cor-filter]').forEach(chk=>{
-    chk.addEventListener('change', applyCorFilter);
-  });
+  const cores = Object.keys(DATA.kpis.cor||{}).filter(c=>c!=='Não informado').sort((a,b)=>a.localeCompare(b,'pt'));
+  const corSelect = document.getElementById('cor-filter-select');
+  corSelect.innerHTML = '<option value="">Todas as cores</option>' +
+    cores.map(c=>`<option value="${c}">${c}</option>`).join('');
+  corSelect.onchange = applyCorFilter;
 
   // clique em área vazia do mapa investiga a coordenada
   map.on('click', (e)=> showInspectLocation(e.latlng.lat, e.latlng.lng));
@@ -945,12 +935,11 @@ function initMap(){
   mapBuilt = true;
 }
 function applyCorFilter(){
-  const active = new Set(Array.from(document.querySelectorAll('[data-cor-filter]:checked')).map(c=>c.dataset.corFilter));
+  const selected = document.getElementById('cor-filter-select').value;
   layerRefs.pontos.eachLayer(m=>{
     const cor = m.ptData.cor || 'Não informado';
-    const show = active.has(cor) || (cor==='Não informado');
-    if(show && !map.hasLayer(m)) layerRefs.pontos.addLayer(m);
-    m.setStyle({opacity: active.has(cor)?1:0.08, fillOpacity: active.has(cor)?0.85:0.05});
+    const show = !selected || cor === selected;
+    m.setStyle({opacity: show?1:0.08, fillOpacity: show?0.85:0.05});
   });
 }
 function showInspectPonto(pt){
@@ -959,12 +948,10 @@ function showInspectPonto(pt){
                      dentro===false ? '<span class="pill out">Fora da mancha</span>' : '—';
   document.getElementById('inspect-content').innerHTML = `
     <div class="inspect-field"><div class="k">Identificação</div><div class="v">${pt.identificacao||'—'}</div></div>
-    <div class="inspect-field"><div class="k">Obra</div><div class="v">${pt.obra||'—'}</div></div>
     <div class="inspect-field"><div class="k">Coordenadas (graus decimais)</div><div class="v mono">${pt.lat.toFixed(5)}, ${pt.lon.toFixed(5)}</div></div>
     <div class="inspect-field"><div class="k">Coordenadas (GMS)</div><div class="v mono" style="font-size:11.5px;">${formatDMS(pt.lat, pt.lon)}</div></div>
     <div class="inspect-field"><div class="k">Coordenadas (UTM)</div><div class="v mono" style="font-size:11.5px;">${formatUTM(pt.lat, pt.lon)}</div></div>
     <div class="inspect-field"><div class="k">Província</div><div class="v">${pt.provincia||'Não disponível.'}</div></div>
-    <div class="inspect-field"><div class="k">Fonte</div><div class="v">${pt.fonte||'Não disponível.'}</div></div>
     <div class="inspect-field"><div class="k">Cor</div><div class="v"><span class="badge" style="background:${corToColor(pt.cor)}"></span>${pt.cor||'Não disponível.'}</div></div>
     <div class="inspect-field"><div class="k">AASHTO</div><div class="v">${pt.aashto||'Não disponível.'}</div></div>
     <div class="inspect-field"><div class="k">SUCS</div><div class="v">${pt.sucs||'Não disponível.'}</div></div>
@@ -1372,7 +1359,6 @@ function generateDossiePDF(){
   if(insp.type === 'ponto'){
     lat=insp.dados.lat; lon=insp.dados.lon; provincia=insp.dados.provincia; dentroMancha=insp.dados.dentro_mancha;
     y = pdfField(doc, 'Identificação', insp.dados.identificacao, y);
-    y = pdfField(doc, 'Obra', insp.dados.obra, y);
   } else if(insp.type === 'local'){
     lat=insp.lat; lon=insp.lon; provincia=insp.provincia; dentroMancha=insp.dentroMancha;
   } else if(insp.type === 'provincia'){
@@ -1393,7 +1379,6 @@ function generateDossiePDF(){
 
   if(insp.type === 'ponto'){
     y = pdfSectionTitle(doc, '3. CLASSIFICAÇÃO GEOTÉCNICA (dado observado)', y);
-    y = pdfField(doc, 'Fonte', insp.dados.fonte, y);
     y = pdfField(doc, 'Cor', insp.dados.cor, y);
     y = pdfField(doc, 'AASHTO', insp.dados.aashto, y);
     y = pdfField(doc, 'SUCS', insp.dados.sucs, y);
